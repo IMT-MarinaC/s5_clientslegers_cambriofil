@@ -1,5 +1,5 @@
 import type { SearchParams } from '../api/types';
-import type { ClueType } from './clues';
+import type { ClueType } from './clue.ts';
 
 export interface Contract {
     id: string;

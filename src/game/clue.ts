@@ -4,7 +4,7 @@ import { formatCentury, getCentury } from '../utils/format';
 
 export type ClueType = 'culture' | 'classification' | 'century' | 'artist' | 'medium' | 'bulk';
 
-export interface Clues {
+export interface Clue {
     type: ClueType;
     value: string;
     text: string;
@@ -31,7 +31,7 @@ const CLUE_RULES: Record<ClueType, ClueRule> = {
 const readClueValue = (type: ClueType, artwork: MetObject) => CLUE_RULES[type].read(artwork).trim();
 
 //ignore les critères vides (l'API renvoie souvent "" pour culture ou classification)
-export function createClues(target: MetObject, types: ClueType[]): Clues[] {
+export function createClues(target: MetObject, types: ClueType[]): Clue[] {
     return types
         .map((type) => ({ type, value: readClueValue(type, target) }))
         .filter((clue) => clue.value !== '')
@@ -39,11 +39,11 @@ export function createClues(target: MetObject, types: ClueType[]): Clues[] {
 }
 
 //Critères que l'œuvre ne respecte pas : sert au verdict, à l'écran de résultat et à la planque
-export function getFailedClues(artwork: MetObject, clues: Clues[]): Clues[] {
+export function getFailedClues(artwork: MetObject, clues: Clue[]): Clue[] {
     return clues.filter((clue) => readClueValue(clue.type, artwork) !== clue.value);
 }
 
-export const countMatchingClues = (artwork: MetObject, clues: Clues[]) =>
+export const countMatchingClues = (artwork: MetObject, clues: Clue[]) =>
     clues.length - getFailedClues(artwork, clues).length;
 
-export const matchesAllClues = (artwork: MetObject, clues: Clues[]) => getFailedClues(artwork, clues).length === 0;
+export const matchesAllClues = (artwork: MetObject, clues: Clue[]) => getFailedClues(artwork, clues).length === 0;
