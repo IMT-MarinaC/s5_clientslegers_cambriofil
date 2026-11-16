@@ -334,3 +334,11 @@ img.surveillance-photo, .tape img {
     border: 3px solid var(--red-pencil);
     border-radius: 6px;
 }
+
+/* ===== Stolen History ===== */
+.stolen-history {
+    max-width: 520px;
+    margin-top: 2.5rem;
+    padding: 1rem 1.5rem;
+}
+
