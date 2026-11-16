@@ -1,0 +1,23 @@
+:root {
+    --paper: #ffffff;
+    --ink: #1f1f1f;
+    --ink-soft: #5b5b5b;
+    --red-pencil: #c8102e;
+    --highlighter: #aeddff;
+    --stroke: 2px;
+    --radius-sketch: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    --radius-sketch-alt: 15px 225px 15px 255px / 255px 15px 225px 15px;
+    --font-hand: 'Caveat', cursive;
+    --font-ui: 'Patrick Hand', 'Comic Sans MS', cursive;
+    --font-typewriter: 'Courier Prime', 'Courier New', monospace;
+    color-scheme: light;
+}
+
+[data-theme='dark'] {
+    --paper: #16171a;
+    --ink: #f2f0e9;
+    --ink-soft: #a8a6a0;
+    --red-pencil: #ff6b6b;
+    --highlighter: rgb(0 127 210);
+    color-scheme: dark;
+}

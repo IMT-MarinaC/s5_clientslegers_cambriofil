@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router';
 import { ScrollText, Trophy, Vault, type LucideIcon } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const NAV_LINKS: { to: string; label: string; Icon: LucideIcon }[] = [
     { to: '/', label: 'Contrats', Icon: ScrollText },
@@ -26,6 +27,7 @@ export default function Header() {
                     ))}
                 </ul>
             </nav>
+            <ThemeToggle />
         </header>
     );
 }
