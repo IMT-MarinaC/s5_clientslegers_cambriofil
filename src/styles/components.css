@@ -293,3 +293,44 @@ img.surveillance-photo, .tape img {
     justify-content: center;
     gap: 1rem;
 }
+
+/* ===== Hideout ===== */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0 2rem;
+}
+
+.btn[aria-pressed='true'] {
+    background: var(--highlighter);
+}
+
+.stolen-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stolen-card__photo {
+    position: relative;
+}
+
+/* Tampon rouge penché sur la photo des invendables */
+.stamp {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    z-index: 1;
+    translate: -50% -50%;
+    rotate: -12deg;
+    padding: 0.1rem 0.9rem;
+    font-family: var(--font-typewriter), serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red-pencil);
+    background: var(--paper);
+    border: 3px solid var(--red-pencil);
+    border-radius: 6px;
+}
