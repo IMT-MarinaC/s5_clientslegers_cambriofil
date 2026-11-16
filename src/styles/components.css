@@ -1,0 +1,89 @@
+.badge {
+    display: inline-flex;
+    gap: 0.3rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--ink-soft);
+    border-radius: var(--radius-sketch-alt);
+}
+
+.badge__label {
+    color: var(--ink-soft);
+}
+
+.badge--danger, .badge--danger .badge__label {
+    color: var(--red-pencil);
+    border: var(--stroke) solid var(--red-pencil);
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+/**** Petit trait de crayon qui grandit pendant le chargement ****/
+.loader::after {
+    content: '';
+    display: inline-block;
+    height: 2px;
+    margin-left: 0.4em;
+    background: var(--ink);
+    animation: scribble 0.8s infinite alternate;
+}
+
+@keyframes scribble {
+    from {
+        width: 0.2em;
+    } to {
+        width: 1.6em;
+    }
+}
+
+.error-box {
+    color: var(--red-pencil);
+    border-color: var(--red-pencil);
+}
+.danger {
+    color: var(--red-pencil);
+}
+.empty-state {
+    max-width: 560px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.image-placeholder {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    color: var(--ink-soft);
+    border: 1px dashed var(--ink-soft);
+}
+
+img.surveillance-photo, .tape img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+/* Le ::after du lien couvre toute la carte : toute la carte devient cliquable */
+.stretched-link {
+    text-decoration: none;
+}
+.stretched-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+}
+
+/* Texte lu par les lecteurs d'écran mais invisible à l'écran */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

@@ -1,5 +1,6 @@
 @import './theme.css';
 @import './sketch.css';
+@import './components.css';
 
 *, *::before, *::after {
     box-sizing: border-box;
