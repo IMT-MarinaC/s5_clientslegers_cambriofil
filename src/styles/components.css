@@ -205,3 +205,91 @@ img.surveillance-photo, .tape img {
         padding: 0;
     }
 }
+
+/*** ===== Salle de musée ===== */
+/* Mobile */
+.room {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.room__items {
+    min-width: 0;
+}
+
+.notebook__blurred [aria-hidden] {
+    filter: blur(4px);
+    user-select: none;
+}
+
+.room-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.room-item__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+/* Grand écran */
+@media (min-width: 900px) {
+    .room {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 2.5rem;
+    }
+    .notebook {
+        position: sticky;
+        top: 1rem;
+        flex: 0 0 300px;
+    }
+    .room__items {
+        flex: 1;
+    }
+}
+
+/* ===== Résultat du vol ===== */
+.briefing, .result { max-width: 780px; margin: 0 auto; text-align: center; }
+.briefing { text-align: left; }
+.briefing__clues { font-size: 1.4rem; }
+.result__photo { position: relative; }
+.result > .result__photo { max-width: 320px; margin: 2rem auto; }
+.result__compare { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem; margin: 1.5rem 0; }
+.result__compare figure { display: flex; flex-direction: column; gap: 0.5rem; width: 220px; margin: 0; }
+
+/* Cercle rouge "au crayon" autour de la bonne œuvre */
+.result__photo--target::after {
+    content: '';
+    position: absolute;
+    inset: -14px -20px;
+    border: 3px solid var(--red-pencil);
+    border-radius: 50% 45% 55% 48%;
+    rotate: -4deg;
+    pointer-events: none;
+}
+
+/* Grand trait rouge sur la mauvaise œuvre */
+.result__photo--wrong::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+                    to top right, transparent calc(50% - 2px),
+                    var(--red-pencil) calc(50% - 2px),
+                    var(--red-pencil) calc(50% + 1px),
+                    transparent calc(50% + 1px)
+    );
+    pointer-events: none;
+}
+
+.result__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
