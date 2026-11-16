@@ -1,3 +1,22 @@
+import { Link, useParams } from 'react-router';
+import { useObject } from '../hooks/useMetQueries';
+import ArtworkDetails from '../components/artwork/ArtworkDetails';
+import Loader from '../components/ui/Loader';
+import ErrorMessage from '../components/ui/ErrorMessage';
+
 export default function ArtworkDetailPage() {
-    return <h1>Détail de l'œuvre</h1>;
+    const { id } = useParams();
+    const { data: artwork, isLoading, isError, refetch } = useObject(Number(id));
+
+    if (isLoading) return <Loader />;
+    if (isError || !artwork) {
+        return <ErrorMessage message="Cette pièce a disparu des registres." onRetry={() => refetch()} />;
+    }
+
+    return (
+        <article>
+            <Link to="/planque" className="btn">Retour à la planque</Link>
+            <ArtworkDetails artwork={artwork} titleId="artwork-title" titleAs="h1" />
+        </article>
+    );
 }
