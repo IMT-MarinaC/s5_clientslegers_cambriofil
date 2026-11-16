@@ -21,7 +21,7 @@ if (!HTMLDialogElement.prototype.showModal) {
     };
 }
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeAll(() => server.listen({ onUnhandledFrame: 'error' }));
 afterEach(() => {
     server.resetHandlers();
     localStorage.clear();
