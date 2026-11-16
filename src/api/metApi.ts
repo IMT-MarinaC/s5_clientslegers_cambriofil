@@ -1,4 +1,4 @@
-import type { DepartmentsResponse, MetObject, SearchParams, SearchResponse } from './types';
+import type {DepartmentsResponse, MetObject, SearchParams, SearchResponse} from './types';
 
 export const BASE_URL = 'https://collectionapi.metmuseum.org/public/collection';
 const DEFAULT_SEARCH_LIMIT = 200;
