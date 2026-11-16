@@ -5,7 +5,7 @@ import { formatEuros } from '../../utils/format';
 
 const RISK_ADVICE: Record<Risk, string> = {
     Faible: "Elle dort en réserve, personne ne la regarde. Cible idéale.",
-    Moyen: "Quelques gardes passent devant. Venir de nuit.",
+    Moyen: "Quelques gardiens passent devant. Venir de nuit.",
     Élevé: "Pièce star, exposée et surveillée. Réservée aux pros.",
 };
 
