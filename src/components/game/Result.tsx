@@ -2,13 +2,13 @@ import { Link } from 'react-router';
 import type { MetObject } from '../../api/types';
 import type { Clue } from '../../game/clue';
 import type { Contract } from '../../game/contracts';
-import type { BurglaryRecord } from '../../game/history';
+import type { HeistRecord } from '../../game/history';
 import { formatEuros } from '../../utils/format';
 import ArtworkImage from '../artwork/ArtworkImage';
 
 interface ResultProps {
     contract: Contract;
-    burglary: BurglaryRecord;
+    heist: HeistRecord;
     stolen: MetObject;
     target: MetObject;
     failedClues: Clue[];
@@ -19,16 +19,16 @@ interface ResultProps {
 }
 
 export default function Result(props: ResultProps) {
-    const { contract, burglary, stolen, target, failedClues, notedCount, totalClues, totalLoot, onReplay } = props;
+    const { contract, heist, stolen, target, failedClues, notedCount, totalClues, totalLoot, onReplay } = props;
 
     return (
         <section className="sketch sketch--overshoot result" aria-live="polite">
             <p className="muted typewriter">Contrat de {contract.client} · {contract.title}</p>
-            <h1>{burglary.success ? 'Contrat rempli !' : 'Mauvaise pioche…'}</h1>
+            <h1>{heist.success ? 'Contrat rempli !' : 'Mauvaise pioche…'}</h1>
 
-            {burglary.success ? (
+            {heist.success ? (
                 <>
-                    <p>{contract.client} te verse <strong className="typewriter">{formatEuros(burglary.reward)}</strong>.</p>
+                    <p>{contract.client} te verse <strong className="typewriter">{formatEuros(heist.reward)}</strong>.</p>
                     <div className="result__photo result__photo--target tape">
                         <ArtworkImage src={target.primaryImageSmall} alt={target.title} surveillance={false} />
                     </div>
@@ -36,7 +36,7 @@ export default function Result(props: ResultProps) {
             ) : (
                 <>
                     <p>
-                        {contract.client} refuse la pièce : pas de prime. « {burglary.artwork.title} » finit dans ta planque,{' '}
+                        {contract.client} refuse la pièce : pas de prime. « {heist.artwork.title} » finit dans ta planque,{' '}
                         <span className="danger">invendable</span>.
                     </p>
                     <div className="result__compare">
@@ -62,7 +62,7 @@ export default function Result(props: ResultProps) {
             <p>Butin total : <strong className="highlight typewriter">{formatEuros(totalLoot)}</strong></p>
             <div className="result__actions">
                 <button type="button" className="btn btn--primary" onClick={onReplay}>
-                    {burglary.success ? 'Nouvelle mission' : 'Retenter une mission'}
+                    {heist.success ? 'Nouvelle mission' : 'Retenter une mission'}
                 </button>
                 <Link to="/" className="btn">Autres contrats</Link>
                 <Link to="/planque" className="btn">Voir ma planque</Link>

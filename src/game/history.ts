@@ -11,7 +11,7 @@ export interface StolenArtwork {
     value: number;
 }
 
-export interface BurglaryRecord {
+export interface HeistRecord {
     id: string;
     date: string;
     contractId: string;
@@ -22,7 +22,7 @@ export interface BurglaryRecord {
     artwork: StolenArtwork;
 }
 
-interface BurglaryInput {
+interface HeistInput {
     contractId: string;
     artwork: MetObject;
     reward: number;
@@ -30,7 +30,7 @@ interface BurglaryInput {
     failedClues: Clue[];
 }
 
-export function createBurglaryRecord({ contractId, artwork, reward, callsMade, failedClues }: BurglaryInput): BurglaryRecord {
+export function createHeistRecord({ contractId, artwork, reward, callsMade, failedClues }: HeistInput): HeistRecord {
     const success = failedClues.length === 0;
     return {
         id: `${Date.now()}-${artwork.objectID}`,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import type { BurglaryRecord } from '../game/history';
-import { useBurglaryHistory } from '../hooks/useBurglaryHistory';
+import type { HeistRecord } from '../game/history';
+import { useHeistHistory } from '../hooks/useHeistHistory.ts';
 import { formatEuros } from '../utils/format';
 import StolenCard from '../components/hideout/StolenCard';
 import EmptyState from '../components/ui/EmptyState';
@@ -14,27 +14,27 @@ const FILTERS: { id: Filter; label: string }[] = [
     { id: 'unsold', label: 'Invendables' },
 ];
 
-const matchesFilter = (burglary: BurglaryRecord, filter: Filter) =>
-    filter === 'all' || (filter === 'delivered') === burglary.success;
+const matchesFilter = (heist: HeistRecord, filter: Filter) =>
+    filter === 'all' || (filter === 'delivered') === heist.success;
 
 export default function HideoutPage() {
-    const { burglaries: burglary } = useBurglaryHistory();
+    const { heists: heist } = useHeistHistory();
     const [filter, setFilter] = useState<Filter>('all');
 
-    const countFor = (option: Filter) => burglary.filter((burglary) => matchesFilter(burglary, option)).length;
-    const visibleBurglary = burglary.filter((burglary) => matchesFilter(burglary, filter)).reverse();
-    const sleepingValue = visibleBurglary.reduce((total, burglary) => total + burglary.artwork.value, 0);
+    const countFor = (option: Filter) => heist.filter((heist) => matchesFilter(heist, option)).length;
+    const visibleHeist = heist.filter((heist) => matchesFilter(heist, filter)).reverse();
+    const sleepingValue = visibleHeist.reduce((total, heist) => total + heist.artwork.value, 0);
 
     return (
         <>
             <h1>La Planque</h1>
-            {burglary.length === 0 ? (
+            {heist.length === 0 ? (
                 <EmptyState title="Ta planque est vide" action={<Link to="/" className="btn btn--primary">Voir les contrats</Link>}>
                     Remplis un premier contrat : chaque pièce volée atterrit ici, livrée ou non.
                 </EmptyState>
             ) : (
                 <>
-                    <p>{burglary.length} pièces entassées ici.</p>
+                    <p>{heist.length} pièces entassées ici.</p>
                     <div className="filter-bar" role="group" aria-label="Filtrer les pièces">
                         {FILTERS.map((option) => (
                             <button
@@ -48,14 +48,14 @@ export default function HideoutPage() {
                             </button>
                         ))}
                     </div>
-                    {filter === 'unsold' && visibleBurglary.length > 0 && (
+                    {filter === 'unsold' && visibleHeist.length > 0 && (
                         <p className="muted">
                             Aucun commanditaire n'en a voulu, mais elles restent à toi : {formatEuros(sleepingValue)} de valeur qui dort sous ton lit.
                         </p>
                     )}
                     <div className="grid">
-                        {visibleBurglary.map((burglary) => (
-                            <StolenCard key={burglary.id} burglary={burglary} />
+                        {visibleHeist.map((heist) => (
+                            <StolenCard key={heist.id} heist={heist} />
                         ))}
                     </div>
                 </>

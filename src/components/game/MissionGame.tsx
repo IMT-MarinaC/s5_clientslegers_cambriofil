@@ -3,9 +3,9 @@ import type {MetObject} from '../../api/types';
 import type {Contract} from '../../game/contracts';
 import {buildMission} from '../../game/buildMission';
 import {type Clue, getFailedClues} from '../../game/clue';
-import {type BurglaryRecord, createBurglaryRecord} from '../../game/history';
+import {type HeistRecord, createHeistRecord} from '../../game/history';
 import {computeReward, FREE_NOTES} from '../../game/reward';
-import {useBurglaryHistory} from '../../hooks/useBurglaryHistory';
+import {useHeistHistory} from '../../hooks/useHeistHistory.ts';
 import ErrorMessage from '../ui/ErrorMessage';
 import Briefing from './Briefing';
 import Room from './Room';
@@ -14,7 +14,7 @@ import Result from './Result';
 type Phase = 'briefing' | 'room' | 'result';
 
 interface Outcome {
-    heist: BurglaryRecord;
+    heist: HeistRecord;
     stolen: MetObject;
     failedClues: Clue[];
 }
@@ -30,7 +30,7 @@ export default function MissionGame({ contract, pool, onReplay }: MissionGamePro
     const [phase, setPhase] = useState<Phase>('briefing');
     const [revealedCount, setRevealedCount] = useState(FREE_NOTES);
     const [outcome, setOutcome] = useState<Outcome | null>(null);
-    const { addBurglary, totalLoot } = useBurglaryHistory();
+    const { addHeist, totalLoot } = useHeistHistory();
 
     if (!mission) {
         return <ErrorMessage message="Pas assez de pièces dans cette salle. Retente ta chance." onRetry={onReplay} />;
@@ -41,8 +41,8 @@ export default function MissionGame({ contract, pool, onReplay }: MissionGamePro
 
     const handleSteal = (artwork: MetObject) => {
         const failedClues = getFailedClues(artwork, mission.clues);
-        const heist = createBurglaryRecord({ contractId: contract.id, artwork, reward, callsMade, failedClues });
-        addBurglary(heist);
+        const heist = createHeistRecord({ contractId: contract.id, artwork, reward, callsMade, failedClues });
+        addHeist(heist);
         setOutcome({ heist, stolen: artwork, failedClues });
         setPhase('result');
     };
@@ -65,7 +65,7 @@ export default function MissionGame({ contract, pool, onReplay }: MissionGamePro
     return (
         <Result
             contract={contract}
-            burglary={outcome.heist}
+            heist={outcome.heist}
             stolen={outcome.stolen}
             target={mission.target}
             failedClues={outcome.failedClues}
