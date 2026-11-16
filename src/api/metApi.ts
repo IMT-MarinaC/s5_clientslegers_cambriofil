@@ -16,17 +16,28 @@ export async function fetchDepartments() {
     return data.departments;
 }
 
-export async function searchObjectIds(params: SearchParams): Promise<number[]> {
+function buildSearchQuery(params: SearchParams) {
     const query = new URLSearchParams({
         hasImages: 'true',
         limit: String(params.limit ?? DEFAULT_SEARCH_LIMIT),
     });
     if (params.q) query.set('q', params.q);
     if (params.departmentId) query.set('departmentId', String(params.departmentId));
-    if (params.isHighlight) query.set('isHighlight', 'true');
+    return query;
+}
 
-    const data = await getJson<SearchResponse>(`/v1.1/search?${query}`);
+function search(params: SearchParams) {
+    return getJson<SearchResponse>(`/v1.1/search?${buildSearchQuery(params)}`);
+}
+
+export async function searchObjectIds(params: SearchParams): Promise<number[]> {
+    const data = await search(params);
     return data.objectIDs ?? [];
+}
+
+export async function countObjects(params: SearchParams): Promise<number> {
+    const data = await search({ ...params, limit: 1 });
+    return data.total;
 }
 
 export function fetchObject(id: number) {

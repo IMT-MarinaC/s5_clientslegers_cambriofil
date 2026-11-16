@@ -15,7 +15,6 @@ export interface SearchResponse {
 export interface SearchParams {
     q?: string;
     departmentId?: number;
-    isHighlight?: boolean;
     limit?: number;
 }
 
