@@ -342,3 +342,45 @@ img.surveillance-photo, .tape img {
     padding: 1rem 1.5rem;
 }
 
+/* ===== Charts ===== */
+.trophy-section {
+    margin-top: 3rem;
+}
+
+.chart-card {
+    margin: 0;
+}
+
+.charts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+.chart-card__data {
+    margin-top: 1rem;
+}
+
+.chart-card__data summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.chart-card__data table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.chart-card__data th, .chart-card__data td {
+    padding: 0.3rem 0;
+    text-align: left;
+    border-bottom: 1px dashed var(--ink-soft);
+}
+
+@media (min-width: 900px) {
+    .charts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

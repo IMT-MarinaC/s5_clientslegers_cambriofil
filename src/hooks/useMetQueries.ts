@@ -1,7 +1,8 @@
 import {useQueries, useQuery} from '@tanstack/react-query';
-import {countObjects, fetchObject, fetchObjects, searchObjectIds} from '../api/metApi';
+import {countObjects, fetchDepartments, fetchObject, fetchObjects, searchObjectIds} from '../api/metApi';
 import type {Contract} from '../game/contracts';
 import {pickRandom} from '../utils/random';
+import {keepTop, type Slice} from "../utils/aggregate.ts";
 
 
 export function useObject(id: number) {
@@ -33,4 +34,31 @@ export function useContractCounts(contracts: Contract[]) {
         })),
         combine: (results) => results.map((result) => result.data),
     });
+}
+
+export function useDepartmentReserves() {
+    const departments = useQuery({ queryKey: ['departments'], queryFn: fetchDepartments, staleTime: Infinity });
+    const list = departments.data ?? [];
+
+    const counts = useQueries({
+        queries: list.map((department) => ({
+            queryKey: ['count', { departmentId: department.departmentId }],
+            queryFn: () => countObjects({ departmentId: department.departmentId }),
+        })),
+        combine: (results) => ({
+            totals: results.map((result) => result.data ?? 0),
+            isLoading: results.some((result) => result.isLoading),
+        }),
+    });
+
+    const reserves: Slice[] = list
+        .map((department, index) => ({ name: department.displayName, value: counts.totals[index] }))
+        .sort((a, b) => b.value - a.value);
+
+    return {
+        reserves: keepTop(reserves, 10),
+        isLoading: departments.isLoading || counts.isLoading,
+        isError: departments.isError,
+        refetch: departments.refetch,
+    };
 }
