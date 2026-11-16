@@ -87,3 +87,16 @@ img.surveillance-photo, .tape img {
     clip-path: inset(50%);
     white-space: nowrap;
 }
+
+/* ===== Contrats ===== */
+.contract-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-start;
+}
+
+.contract-card__title {
+    font-size: 1.3rem;
+    margin: 0;
+}

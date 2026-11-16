@@ -1,5 +1,5 @@
-import {useQuery} from '@tanstack/react-query';
-import {fetchObject, fetchObjects, searchObjectIds} from '../api/metApi';
+import {useQueries, useQuery} from '@tanstack/react-query';
+import {countObjects, fetchObject, fetchObjects, searchObjectIds} from '../api/metApi';
 import type {Contract} from '../game/contracts';
 import {pickRandom} from '../utils/random';
 
@@ -22,5 +22,15 @@ export function useMissionPool(contract?: Contract) {
             return fetchObjects(pickRandom(ids, MISSION_POOL_SIZE));
         },
         enabled: Boolean(contract),
+    });
+}
+
+export function useContractCounts(contracts: Contract[]) {
+    return useQueries({
+        queries: contracts.map((contract) => ({
+            queryKey: ['count', contract.search],
+            queryFn: () => countObjects(contract.search),
+        })),
+        combine: (results) => results.map((result) => result.data),
     });
 }
