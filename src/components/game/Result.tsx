@@ -3,7 +3,7 @@ import type { MetObject } from '../../api/types';
 import type { Clue } from '../../game/clue';
 import type { Contract } from '../../game/contracts';
 import type { HeistRecord } from '../../game/history';
-import { formatEuros } from '../../utils/format';
+import {formatEuros, withFinalPeriod} from '../../utils/format';
 import ArtworkImage from '../artwork/ArtworkImage';
 
 interface ResultProps {
@@ -54,7 +54,7 @@ export default function Result(props: ResultProps) {
                         </figure>
                     </div>
                     <p className="muted">
-                        Ton carnet affichait {notedCount} critères sur {totalClues}. Il fallait une pièce {failedClues[0].text}.
+                        Ton carnet affichait {notedCount} critères sur {totalClues}. Il fallait une pièce {withFinalPeriod(failedClues[0].text)}.
                     </p>
                 </>
             )}

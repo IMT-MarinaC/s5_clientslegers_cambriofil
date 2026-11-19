@@ -19,8 +19,12 @@ export default function ArtworkDetailPage() {
     return (
         <article>
             <Link to="/planque" className="btn">Retour à la planque</Link>
-            <ArtworkDetails artwork={artwork} titleId="artwork-title" titleAs="h1" />
-            <StolenHistory heists={heists.filter((heist) => heist.artwork.objectID === artwork.objectID)} />
-        </article>
+            <ArtworkDetails
+                artwork={artwork}
+                titleId="artwork-title"
+                titleAs="h1"
+                mediaFooter={<StolenHistory heists={heists.filter((heist) => heist.artwork.objectID === artwork.objectID)} />}
+            />
+            </article>
     );
 }

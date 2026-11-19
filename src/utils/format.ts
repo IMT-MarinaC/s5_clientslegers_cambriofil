@@ -34,5 +34,7 @@ export function getCentury(year: number): number {
 }
 
 export function formatCentury(century: number): string {
-    return century > 0 ? `${toRoman(century)}e s.` : `${toRoman(-century)}e s. av. J.-C.`;
+    return `${toRoman(-century)}e s. av.\u00a0J.\u2011C.`;
 }
+
+export const withFinalPeriod = (text: string) => (text.endsWith('.') ? text : `${text}.`);

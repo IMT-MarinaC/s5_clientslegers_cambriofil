@@ -1,11 +1,13 @@
-import type { MetObject } from '../../api/types';
+import type {MetObject} from '../../api/types';
 import ArtworkImage from './ArtworkImage';
 import ThiefStatsPanel from './ThiefStatsPanel';
+import type {ReactNode} from 'react';
 
 interface ArtworkDetailsProps {
     artwork: MetObject;
     titleId: string;
     titleAs?: 'h1' | 'h2';
+    mediaFooter?: ReactNode;
 }
 
 function getFacts(artwork: MetObject) {
@@ -21,15 +23,18 @@ function getFacts(artwork: MetObject) {
     ].filter((fact) => fact.value); // on n'affiche pas les champs vides
 }
 
-export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2' }: ArtworkDetailsProps) {
+export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', mediaFooter }: ArtworkDetailsProps) {
     return (
         <div className="detail">
-            <div className="tape">
-                <ArtworkImage src={artwork.primaryImageSmall} alt={artwork.title} surveillance={false} />
+            <div className="detail__media">
+                <div className="tape">
+                    <ArtworkImage src={artwork.primaryImageSmall} alt={artwork.title} surveillance={false} />
+                </div>
+                {mediaFooter}
             </div>
             <div className="detail__info">
-                <p className="muted typewriter">Fiche n° {artwork.objectID}</p>
                 <Title id={titleId} className="detail__title">{artwork.title || 'Sans titre'}</Title>
+                <p className="muted typewriter">Fiche n° {artwork.objectID}</p>
                 <dl className="sketch facts">
                     {getFacts(artwork).map((fact) => (
                         <div key={fact.label} className="facts__row">

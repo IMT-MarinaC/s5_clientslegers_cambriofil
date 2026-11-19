@@ -1,6 +1,6 @@
-import { Link } from 'react-router';
-import type { Contract } from '../../game/contracts';
-import { formatEuros } from '../../utils/format';
+import {Link} from 'react-router';
+import type {Contract} from '../../game/contracts';
+import {formatEuros} from '../../utils/format';
 import Badge from '../ui/Badge';
 
 interface ContractCardProps {
@@ -15,13 +15,17 @@ export default function ContractCard({ contract, museumCount }: ContractCardProp
             <h2>{contract.client}</h2>
             <p className="contract-card__title">« {contract.title} »</p>
             <p className="muted">{contract.pitch}</p>
-            <div className="badges">
-                <Badge label="Prime" value={formatEuros(contract.reward)} />
-                <Badge label="Pièces au Met" value={museumCount?.toLocaleString('fr-FR') ?? '…'} />
+            <div className="contract-card__footer">
+                <div className="badges">
+                    <Badge label="Prime" value={formatEuros(contract.reward)} />
+                    <span title="Œuvres du Met qui correspondent à ce contrat">
+                    <Badge label="Cibles repérées" value={museumCount?.toLocaleString('fr-FR') ?? '…'} />
+                </span>
+                </div>
+                <Link to={`/contrats/${contract.id}`} className="btn btn--primary">
+                    Accepter le contrat
+                </Link>
             </div>
-            <Link to={`/contrats/${contract.id}`} className="btn btn--primary">
-                Accepter le contrat
-            </Link>
         </article>
     );
 }

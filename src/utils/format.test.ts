@@ -12,5 +12,5 @@ describe('getCentury', () => {
 });
 
 it('formate les siècles avant J.-C. en chiffres romains', () => {
-    expect(formatCentury(-14)).toBe('XIVe s. av. J.-C.');
+    expect(formatCentury(-14)).toBe('XIVe s. av.\u00a0J.\u2011C.')
 });

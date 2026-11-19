@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { findContract } from '../../game/contracts';
 import type { HeistRecord } from '../../game/history';
-import { formatDate, formatEuros } from '../../utils/format';
+import {formatDate, formatEuros, withFinalPeriod} from '../../utils/format';
 import ArtworkImage from '../artwork/ArtworkImage';
 import Badge from '../ui/Badge';
 
@@ -20,7 +20,7 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
             </h3>
             <p className="muted typewriter">Volée le {formatDate(heist.date)} · {artwork.department}</p>
             {!heist.success && contract && heist.missedClue && (
-                <p className="muted">Pour {contract.client}, qui voulait une pièce {heist.missedClue}.</p>
+                <p className="muted">Pour {contract.client}, qui voulait une pièce {withFinalPeriod(heist.missedClue)}.</p>
             )}
             <div className="badges">
                 <Badge label="Valeur" value={formatEuros(artwork.value)} />

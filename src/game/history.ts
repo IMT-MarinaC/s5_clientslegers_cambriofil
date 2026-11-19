@@ -16,9 +16,9 @@ export interface HeistRecord {
     date: string;
     contractId: string;
     success: boolean;
-    reward: number; //0 si raté
+    reward: number;
     callsMade: number;
-    missedClue?: string; //1er critère raté, affiché sur les invendables
+    missedClue?: string;
     artwork: StolenArtwork;
 }
 
