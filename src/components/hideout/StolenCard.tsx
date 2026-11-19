@@ -20,7 +20,7 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
             </h3>
             <p className="muted typewriter">Volée le {formatDate(heist.date)} · {artwork.department}</p>
             {!heist.success && contract && heist.missedClue && (
-                <p className="muted">Pour {contract.client}, qui voulait une pièce {withFinalPeriod(heist.missedClue)}.</p>
+                <p className="muted">Pour {contract.client}, qui voulait une pièce {withFinalPeriod(heist.missedClue)}</p>
             )}
             <div className="badges">
                 <Badge label="Valeur" value={formatEuros(artwork.value)} />
