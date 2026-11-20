@@ -1,14 +1,9 @@
-import type { HeistSummary } from '../../game/heistStats';
-import { formatEuros } from '../../utils/format';
+export interface StatTile {
+    label: string;
+    value: string;
+}
 
-export default function StatTiles({ summary }: { summary: HeistSummary }) {
-    const tiles = [
-        { label: 'Casses', value: String(summary.count) },
-        { label: 'Réussite', value: `${summary.successRate} %` },
-        { label: 'Butin total', value: formatEuros(summary.totalLoot) },
-        { label: 'Appels passés', value: String(summary.callsMade) },
-    ];
-
+export default function StatTiles({ tiles }: { tiles: StatTile[] }) {
     return (
         <dl className="stat-tiles">
             {tiles.map((tile) => (

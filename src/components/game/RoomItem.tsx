@@ -12,14 +12,14 @@ export default function RoomItem({ artwork, onInspect, onSteal }: RoomItemProps)
     const title = artwork.title || 'Sans titre';
 
     return (
-        <article className="sketch room-item">
+        <article className="sketch sketch--interactive room-item">
             <div className="tape">
                 <ArtworkImage src={artwork.primaryImageSmall} alt={title} />
             </div>
             <h3>{title}</h3>
             <div className="room-item__actions">
                 {/* aria-label : 6 boutons "Voler" identiques seraient ambigus au lecteur d'écran */}
-                <button type="button" className="btn" onClick={() => onInspect(artwork)} aria-label={`Examiner « ${title} »`}>
+                <button type="button" className="btn stretched-link" onClick={() => onInspect(artwork)} aria-label={`Examiner « ${title} »`}>
                     <Search aria-hidden="true" size={18} />
                     Examiner
                 </button>

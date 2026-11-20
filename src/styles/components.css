@@ -321,6 +321,11 @@ img.surveillance-photo, .tape img {
     padding-inline: 0.5rem;
 }
 
+.room-item__actions .btn--primary {
+    position: relative;
+    z-index: 3;
+}
+
 /* Grand écran */
 @media (min-width: 900px) {
     .room {

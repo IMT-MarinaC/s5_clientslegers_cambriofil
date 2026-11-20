@@ -1,5 +1,6 @@
 import {useQueries, useQuery} from '@tanstack/react-query';
 import {countObjects, fetchDepartments, fetchObject, fetchObjects, searchObjectIds} from '../api/metApi';
+import type {SearchParams} from '../api/types';
 import type {Contract} from '../game/contracts';
 import {pickRandom} from '../utils/random';
 import {keepTop, type Slice} from "../utils/aggregate.ts";
@@ -33,6 +34,22 @@ export function useContractCounts(contracts: Contract[]) {
             queryFn: () => countObjects(contract.search),
         })),
         combine: (results) => results.map((result) => result.data),
+    });
+}
+
+const MUSEUM_COUNTS: SearchParams[] = [{}, { isOnView: true }, { isHighlight: true }];
+
+export function useMuseumOverview() {
+    return useQueries({
+        queries: MUSEUM_COUNTS.map((params) => ({
+            queryKey: ['count', params],
+            queryFn: () => countObjects(params),
+        })),
+        combine: (results) => {
+            const [photographed, onView, highlights] = results.map((result) => result.data);
+            const inReserve = photographed !== undefined && onView !== undefined ? photographed - onView : undefined;
+            return { photographed, onView, inReserve, highlights };
+        },
     });
 }
 

@@ -8,9 +8,11 @@ const ALL_ARTWORKS = [DETAIL_ARTWORK, ...MISSION_POOL];
 export const handlers = [
     http.get(`${BASE_URL}/v1/departments`, () => HttpResponse.json({ departments: DEPARTMENTS })),
 
-    http.get(`${BASE_URL}/v1.1/search`, () =>
-        HttpResponse.json({ total: MISSION_POOL.length, objectIDs: MISSION_POOL.map((a) => a.objectID) }),
-    ),
+    http.get(`${BASE_URL}/v1.1/search`, ({ request }) => {
+        const params = new URL(request.url).searchParams;
+        const total = params.has('isOnView') ? 3 : params.has('isHighlight') ? 1 : MISSION_POOL.length;
+        return HttpResponse.json({ total, objectIDs: MISSION_POOL.map((a) => a.objectID) });
+    }),
 
     http.get(`${BASE_URL}/v1/objects/:id`, ({ params }) => {
         const artwork = ALL_ARTWORKS.find((a) => a.objectID === Number(params.id));

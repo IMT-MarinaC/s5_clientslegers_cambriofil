@@ -23,6 +23,8 @@ function buildSearchQuery(params: SearchParams) {
     });
     if (params.q) query.set('q', params.q);
     if (params.departmentId) query.set('departmentId', String(params.departmentId));
+    if (params.isOnView) query.set('isOnView', 'true');
+    if (params.isHighlight) query.set('isHighlight', 'true');
     return query;
 }
 
