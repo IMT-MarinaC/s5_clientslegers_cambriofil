@@ -35,7 +35,6 @@ export function getCentury(year: number): number {
 
 const BEFORE_CHRIST = 'av.\u00a0J.\u2011C.';
 
-// 19 -> "XIXe siècle", 1 -> "Ier siècle", -14 -> "XIVe siècle av. J.-C."
 export function formatCentury(century: number): string {
     const number = Math.abs(century);
     const label = `${toRoman(number)}${number === 1 ? 'er' : 'e'} siècle`;

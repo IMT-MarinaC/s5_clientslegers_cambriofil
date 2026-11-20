@@ -19,7 +19,7 @@ describe('Mission', () => {
 
         await user.click(screen.getAllByRole('button', { name: /^Examiner/ })[0]);
         const dialog = screen.getByRole('dialog');
-        expect(within(dialog).getByRole('link', { name: 'Voir sur le site du Met' })).toBeInTheDocument();
+        expect(within(dialog).getByRole('link', { name: /Voir sur le site du Met/ })).toBeInTheDocument();
 
         await user.click(within(dialog).getByRole('button', { name: 'Voler celle-ci' }));
         expect(screen.getByRole('heading', { name: /contrat rempli|mauvaise pioche/i })).toBeInTheDocument();

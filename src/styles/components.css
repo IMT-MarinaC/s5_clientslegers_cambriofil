@@ -136,7 +136,6 @@ img.surveillance-photo, .tape img {
 }
 
 /* ===== Fiche œuvre (page et fenêtre Examiner) ===== */
-/* Mobile : titre + n° de fiche, photo, descriptif, dans l'ordre du HTML */
 .detail {
     display: grid;
     gap: 1.5rem;
@@ -148,8 +147,11 @@ img.surveillance-photo, .tape img {
     gap: 0.25rem;
 }
 
-.detail__header p {
-    margin: 0;
+.detail__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 1.25rem;
 }
 
 .detail__info {
@@ -188,12 +190,10 @@ img.surveillance-photo, .tape img {
     width: 100%;
 }
 
-/* Photo un peu de travers, comme un tirage posé sur le bureau (décoratif : aucun texte dans l'image) */
 .detail__media {
     rotate: -1deg;
 }
 
-/* Tampon dans le coin : il ne cache plus l'œuvre */
 .detail__media .stamp {
     top: 1.25rem;
     left: 0.75rem;
@@ -204,14 +204,14 @@ img.surveillance-photo, .tape img {
 
 /* Sur téléphone, la fenêtre Examiner prend tout l'écran, boutons collés en bas */
 .inspector {
-    position: fixed; /* toujours calée sur l'écran, même si la page est défilée */
+    position: fixed;
     width: 100%;
     max-width: 100%;
     height: 100dvh;
     max-height: 100dvh;
     margin: 0;
-    padding: 0; /* le contenu porte la marge : un clic sur le <dialog> lui-même = un clic sur le fond */
-    overflow: hidden auto; /* pas de scroll horizontal dû aux photos penchées */
+    padding: 0;
+    overflow: hidden auto;
     color: var(--ink);
     background: var(--paper);
     border: none;
@@ -226,7 +226,6 @@ img.surveillance-photo, .tape img {
     background: rgba(0, 0, 0, 0.55);
 }
 
-/* Coupon détachable scotché en bas de la fiche : pointillés « à découper » + morceau de scotch (.tape) */
 .inspector__actions {
     position: sticky;
     bottom: 0;
@@ -251,11 +250,10 @@ img.surveillance-photo, .tape img {
 }
 
 @media (min-width: 800px) {
-    /* Grand écran : la photo à gauche, titre et descriptif à droite */
     .detail {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
         grid-template-areas: 'media header' 'media info';
-        grid-template-rows: auto 1fr; /* le 1fr absorbe la hauteur de la photo : pas de trou sous le titre */
+        grid-template-rows: auto 1fr;
         gap: 1.5rem 3rem;
         margin-top: 2rem;
     }
@@ -272,7 +270,7 @@ img.surveillance-photo, .tape img {
         align-self: start;
     }
     .inspector {
-        width: min(1000px, 92vw);
+        width: min(920px, 92vw);
         height: auto;
         max-height: 90vh;
         margin: auto;
@@ -320,7 +318,7 @@ img.surveillance-photo, .tape img {
 }
 
 .room-item__actions .btn {
-    padding-inline: 0.5rem; /* icône + texte tiennent dans une carte étroite */
+    padding-inline: 0.5rem;
 }
 
 /* Grand écran */
@@ -345,7 +343,7 @@ img.surveillance-photo, .tape img {
 .briefing { text-align: left; }
 .briefing__clues { font-size: 1.4rem; }
 .briefing__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; margin-top: 1.5rem; }
-.briefing__actions .btn--primary { margin-left: auto; } /* reste à droite, même quand les boutons passent sur deux lignes */
+.briefing__actions .btn--primary { margin-left: auto; }
 .result__photo { position: relative; }
 .result > .result__photo { max-width: 320px; margin: 2rem auto; }
 .result__compare { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem; margin: 1.5rem 0; }
@@ -413,7 +411,6 @@ img.surveillance-photo, .tape img {
     font-size: 0.85rem;
 }
 
-/* Badges toujours en bas : alignés d'une carte à l'autre */
 .stolen-card .badges {
     margin-top: auto;
     padding-top: 0.5rem;
@@ -423,7 +420,6 @@ img.surveillance-photo, .tape img {
     position: relative;
 }
 
-/* Tampon penché sur la photo : rouge pour les invendables, vert pour les livrées */
 .stamp {
     position: absolute;
     top: 38%;
@@ -488,9 +484,8 @@ img.surveillance-photo, .tape img {
     margin-top: 1rem;
 }
 
-/* « Voir les données » (.link-button) : la flèche pivote pour montrer qu'un tableau va se déplier */
 .chart-card__data summary::-webkit-details-marker {
-    display: none; /* la flèche native de Safari ferait doublon */
+    display: none;
 }
 
 .chart-card__data summary svg {

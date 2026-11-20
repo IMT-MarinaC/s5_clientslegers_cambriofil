@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { ExternalLink } from 'lucide-react';
 import type { MetObject } from '../../api/types';
 import { findContract } from '../../game/contracts';
 import type { HeistRecord } from '../../game/history';
@@ -39,7 +40,14 @@ export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2'
         <div className="detail">
             <div className="detail__header">
                 <Title id={titleId} className="detail__title" tabIndex={-1}>{artwork.title || 'Sans titre'}</Title>
-                <p className="muted typewriter">Fiche n° {artwork.objectID}</p>
+                <div className="detail__meta">
+                    <span className="muted typewriter">Fiche n° {artwork.objectID}</span>
+                    <a href={artwork.objectURL} target="_blank" rel="noreferrer" className="link-button">
+                        <ExternalLink aria-hidden="true" size={16} />
+                        Voir sur le site du Met
+                        <span className="sr-only">(nouvel onglet)</span>
+                    </a>
+                </div>
             </div>
             <div className="detail__media tape">
                 <ArtworkImage src={artwork.primaryImageSmall} alt={artwork.title} surveillance={false} />
@@ -55,9 +63,6 @@ export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2'
                     ))}
                 </dl>
                 {children}
-                <a href={artwork.objectURL} target="_blank" rel="noreferrer" className="btn">
-                    Voir sur le site du Met
-                </a>
             </div>
         </div>
     );
