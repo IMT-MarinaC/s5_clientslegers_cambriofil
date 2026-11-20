@@ -1,3 +1,4 @@
+import { HandGrab, Search } from 'lucide-react';
 import type { MetObject } from '../../api/types';
 import ArtworkImage from '../artwork/ArtworkImage';
 
@@ -19,9 +20,11 @@ export default function RoomItem({ artwork, onInspect, onSteal }: RoomItemProps)
             <div className="room-item__actions">
                 {/* aria-label : 6 boutons "Voler" identiques seraient ambigus au lecteur d'écran */}
                 <button type="button" className="btn" onClick={() => onInspect(artwork)} aria-label={`Examiner « ${title} »`}>
+                    <Search aria-hidden="true" size={18} />
                     Examiner
                 </button>
                 <button type="button" className="btn btn--primary" onClick={() => onSteal(artwork)} aria-label={`Voler « ${title} »`}>
+                    <HandGrab aria-hidden="true" size={18} />
                     Voler
                 </button>
             </div>

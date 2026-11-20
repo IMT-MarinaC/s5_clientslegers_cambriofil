@@ -1,6 +1,8 @@
 import { Link, useParams } from 'react-router';
+import { ArrowLeft } from 'lucide-react';
 import { useObject } from '../hooks/useMetQueries';
 import ArtworkDetails from '../components/artwork/ArtworkDetails';
+import ThiefStatsPanel from '../components/artwork/ThiefStatsPanel';
 import Loader from '../components/ui/Loader';
 import ErrorMessage from '../components/ui/ErrorMessage';
 import { useHeistHistory } from "../hooks/useHeistHistory.ts";
@@ -20,13 +22,18 @@ export default function ArtworkDetailPage() {
 
     return (
         <article>
-            <Link to="/planque" className="btn">Retour à la planque</Link>
+            <Link to="/planque" className="btn">
+                <ArrowLeft aria-hidden="true" size={18} />
+                Retour à la planque
+            </Link>
             <ArtworkDetails
                 artwork={artwork}
                 titleId="artwork-title"
                 titleAs="h1"
                 heist={lastHeist}
-            />
+            >
+                <ThiefStatsPanel artwork={artwork} />
+            </ArtworkDetails>
         </article>
     );
 }

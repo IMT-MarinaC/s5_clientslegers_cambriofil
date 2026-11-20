@@ -180,32 +180,56 @@ img.surveillance-photo, .tape img {
     width: 100%;
 }
 
+/* Photo un peu de travers, comme un tirage posé sur le bureau (décoratif : aucun texte dans l'image) */
+.detail__media {
+    rotate: -1deg;
+}
+
+/* Tampon dans le coin : il ne cache plus l'œuvre */
+.detail__media .stamp {
+    top: 1.25rem;
+    left: 0.75rem;
+    translate: none;
+    rotate: -10deg;
+    font-size: 0.9rem;
+}
+
 /* Sur téléphone, la fenêtre Examiner prend tout l'écran, boutons collés en bas */
 .inspector {
+    position: fixed; /* toujours calée sur l'écran, même si la page est défilée */
     width: 100%;
     max-width: 100%;
     height: 100dvh;
     max-height: 100dvh;
     margin: 0;
-    padding: 1.25rem;
-    overflow: auto;
+    padding: 0; /* le contenu porte la marge : un clic sur le <dialog> lui-même = un clic sur le fond */
+    overflow: hidden auto; /* pas de scroll horizontal dû aux photos penchées */
     color: var(--ink);
-    border-radius: 0;
+    background: var(--paper);
+    border: none;
+}
+
+.inspector__content {
+    --inspector-padding: 1.25rem;
+    padding: var(--inspector-padding) var(--inspector-padding) 0;
 }
 
 .inspector::backdrop {
     background: rgba(0, 0, 0, 0.55);
 }
 
+/* Coupon détachable scotché en bas de la fiche : pointillés « à découper » + morceau de scotch (.tape) */
 .inspector__actions {
     position: sticky;
     bottom: 0;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
-    margin-top: 1.5rem;
-    padding: 1rem 0;
+    margin: 1.5rem calc(-1 * var(--inspector-padding)) 0;
+    padding: 1.25rem var(--inspector-padding) calc(1rem + env(safe-area-inset-bottom));
     background: var(--paper);
+    border-top: var(--stroke) dashed var(--ink-soft);
 }
 
 @media (min-width: 600px) {
@@ -244,15 +268,16 @@ img.surveillance-photo, .tape img {
         height: auto;
         max-height: 90vh;
         margin: auto;
-        padding: 2rem;
+        border: var(--stroke) solid var(--ink);
         border-radius: var(--radius-sketch);
     }
+    .inspector__content {
+        --inspector-padding: 2rem;
+    }
     .inspector__actions {
-        position: static;
         display: flex;
         justify-content: flex-end;
         gap: 1rem;
-        padding: 0;
     }
 }
 
@@ -284,6 +309,10 @@ img.surveillance-photo, .tape img {
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
     margin-top: auto;
+}
+
+.room-item__actions .btn {
+    padding-inline: 0.5rem; /* icône + texte tiennent dans une carte étroite */
 }
 
 /* Grand écran */
@@ -359,7 +388,25 @@ img.surveillance-photo, .tape img {
 .stolen-card {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
+}
+
+.stolen-card h3 {
+    margin: 0.25rem 0 0;
+}
+
+.stolen-card p {
+    margin: 0;
+}
+
+.stolen-card__meta {
+    font-size: 0.85rem;
+}
+
+/* Badges toujours en bas : alignés d'une carte à l'autre */
+.stolen-card .badges {
+    margin-top: auto;
+    padding-top: 0.5rem;
 }
 
 .stolen-card__photo {

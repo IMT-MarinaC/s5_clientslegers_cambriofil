@@ -29,6 +29,18 @@ describe('Mission', () => {
         expect(screen.getAllByRole('article')).toHaveLength(1);
     });
 
+    it('ferme la fenêtre Examiner d’un clic à côté, sans rien voler', async () => {
+        const user = userEvent.setup();
+        renderApp('/contrats/collectionneur');
+
+        await user.click(await screen.findByRole('button', { name: /c'est noté/i }));
+        await user.click(screen.getAllByRole('button', { name: /^Examiner/ })[0]);
+        await user.click(screen.getByRole('dialog')); // vise le <dialog> lui-même, comme un clic sur le fond assombri
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: 'La salle' })).toBeInTheDocument();
+    });
+
     it('affiche une erreur si l’API ne répond plus', async () => {
         server.use(http.get(`${BASE_URL}/v1.1/search`, () => new HttpResponse(null, { status: 500 })));
         renderApp('/contrats/comtesse');

@@ -1,16 +1,17 @@
+import type { ReactNode } from 'react';
 import type { MetObject } from '../../api/types';
 import { findContract } from '../../game/contracts';
 import type { HeistRecord } from '../../game/history';
-import { formatDate } from '../../utils/format';
+import { formatCentury, formatDate, formatYearRange, getCentury } from '../../utils/format';
 import Stamp from '../ui/Stamp';
 import ArtworkImage from './ArtworkImage';
-import ThiefStatsPanel from './ThiefStatsPanel';
 
 interface ArtworkDetailsProps {
     artwork: MetObject;
     titleId: string;
     titleAs?: 'h1' | 'h2';
     heist?: HeistRecord; // dernier vol de cette œuvre, affiché sur la page fiche
+    children?: ReactNode; // contenu en plus sous le descriptif (ex. l'avis du receleur sur la page fiche)
 }
 
 function describeHeist(heist: HeistRecord) {
@@ -21,7 +22,9 @@ function describeHeist(heist: HeistRecord) {
 function getFacts(artwork: MetObject, heist?: HeistRecord) {
     return [
         { label: 'Artiste', value: artwork.artistDisplayName },
-        { label: 'Date', value: artwork.objectDate },
+        // Même format que le carnet (« créée au XVIe siècle av. J.-C. ») pour comparer d'un coup d'œil
+        { label: 'Siècle', value: artwork.objectDate && formatCentury(getCentury(artwork.objectBeginDate)) },
+        { label: 'Années', value: artwork.objectDate && formatYearRange(artwork.objectBeginDate, artwork.objectEndDate) },
         { label: 'Culture', value: artwork.culture },
         { label: 'Classification', value: artwork.classification },
         { label: 'Matériau', value: artwork.medium },
@@ -32,11 +35,11 @@ function getFacts(artwork: MetObject, heist?: HeistRecord) {
     ].filter((fact) => fact.value); // on n'affiche pas les champs vides
 }
 
-export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', heist }: ArtworkDetailsProps) {
+export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', heist, children }: ArtworkDetailsProps) {
     return (
         <div className="detail">
             <div className="detail__header">
-                <Title id={titleId} className="detail__title">{artwork.title || 'Sans titre'}</Title>
+                <Title id={titleId} className="detail__title" tabIndex={-1}>{artwork.title || 'Sans titre'}</Title>
                 <p className="muted typewriter">Fiche n° {artwork.objectID}</p>
             </div>
             <div className="detail__media tape">
@@ -52,7 +55,7 @@ export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2'
                         </div>
                     ))}
                 </dl>
-                <ThiefStatsPanel artwork={artwork} />
+                {children}
                 <a href={artwork.objectURL} target="_blank" rel="noreferrer" className="btn">
                     Voir sur le site du Met
                 </a>
