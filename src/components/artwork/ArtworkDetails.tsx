@@ -17,7 +17,9 @@ interface ArtworkDetailsProps {
 
 function describeHeist(heist: HeistRecord) {
     const client = findContract(heist.contractId)?.client ?? 'un commanditaire';
-    return `Volée le ${formatDate(heist.date)} pour ${client} : ${heist.success ? 'livrée' : 'invendable'}`;
+    const outcome = heist.success ? 'livrée' : 'invendable';
+    const missed = heist.missedClue ? `, il fallait une pièce ${heist.missedClue}` : '';
+    return `Volée le ${formatDate(heist.date)} pour ${client} : ${outcome}${missed}`;
 }
 
 function getFacts(artwork: MetObject, heist?: HeistRecord) {

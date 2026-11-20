@@ -18,7 +18,7 @@ it('affiche un état vide au départ', () => {
     expect(screen.getByRole('heading', { name: 'Ta planque est vide' })).toBeInTheDocument();
 });
 
-it('filtre les invendables et rappelle pour qui elles étaient', async () => {
+it('filtre les invendables', async () => {
     localStorage.setItem('cambriofil:heists', JSON.stringify([stolen(1, true), stolen(2, false)]));
     const user = userEvent.setup();
     renderApp('/planque');
@@ -28,5 +28,4 @@ it('filtre les invendables et rappelle pour qui elles étaient', async () => {
 
     expect(screen.getAllByRole('article')).toHaveLength(1);
     expect(screen.getByText('Pièce 2')).toBeInTheDocument();
-    expect(screen.getByRole('article')).toHaveTextContent('Pour La Professeure, qui voulait une pièce classée « Vases ».');
 });

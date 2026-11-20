@@ -1,14 +1,12 @@
 import { Link } from 'react-router';
-import { findContract } from '../../game/contracts';
 import type { HeistRecord } from '../../game/history';
-import {formatDate, formatEuros, withFinalPeriod} from '../../utils/format';
+import { formatDate, formatEuros } from '../../utils/format';
 import ArtworkImage from '../artwork/ArtworkImage';
 import Badge from '../ui/Badge';
 import Stamp from '../ui/Stamp';
 
 export default function StolenCard({ heist }: { heist: HeistRecord }) {
     const { artwork } = heist;
-    const contract = findContract(heist.contractId);
 
     return (
         <article className="sketch sketch--interactive stolen-card">
@@ -20,9 +18,6 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
                 <Link to={`/oeuvre/${artwork.objectID}`} className="stretched-link">{artwork.title}</Link>
             </h3>
             <p className="muted typewriter stolen-card__meta">Volée le {formatDate(heist.date)} · {artwork.department}</p>
-            {!heist.success && contract && heist.missedClue && (
-                <p className="muted">Pour {contract.client}, qui voulait une pièce {withFinalPeriod(heist.missedClue)}</p>
-            )}
             <div className="badges">
                 <Badge label="Valeur" value={formatEuros(artwork.value)} />
                 {heist.success ? (

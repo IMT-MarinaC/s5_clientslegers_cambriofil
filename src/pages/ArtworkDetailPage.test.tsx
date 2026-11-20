@@ -26,6 +26,23 @@ it('rappelle quand et pour qui la pièce a été volée', async () => {
     expect(screen.getByText('Volée le 16 novembre pour Monsieur Gris : livrée')).toBeInTheDocument();
 });
 
+it('rappelle ce qu’il fallait voler quand la pièce est invendable', async () => {
+    const heist = {
+        id: '1',
+        date: '2026-11-16T10:00:00Z',
+        contractId: 'professeure',
+        success: false,
+        reward: 0,
+        callsMade: 0,
+        missedClue: 'classée « Vases »',
+        artwork: { objectID: 2, title: 'Épée de chevalier', department: 'Arms and Armor', imageUrl: '', value: 1000 },
+    };
+    localStorage.setItem('cambriofil:heists', JSON.stringify([heist]));
+    renderApp('/oeuvre/2');
+
+    expect(await screen.findByText('Volée le 16 novembre pour La Professeure : invendable, il fallait une pièce classée « Vases »')).toBeInTheDocument();
+});
+
 it('affiche un message si l’œuvre n’existe pas', async () => {
     renderApp('/oeuvre/999');
     expect(await screen.findByRole('alert')).toHaveTextContent(/disparu/i);

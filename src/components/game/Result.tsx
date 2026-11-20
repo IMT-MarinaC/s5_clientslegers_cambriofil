@@ -54,7 +54,7 @@ export default function Result(props: ResultProps) {
                         </figure>
                     </div>
                     <p className="muted">
-                        Ton carnet affichait {notedCount} critères sur {totalClues}. Il fallait une pièce {withFinalPeriod(failedClues[0].text)}.
+                        Ton carnet affichait {notedCount} critères sur {totalClues}. Il fallait une pièce {withFinalPeriod(failedClues[0].text)}
                     </p>
                 </>
             )}

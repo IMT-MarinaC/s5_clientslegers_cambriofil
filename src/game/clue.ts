@@ -20,7 +20,7 @@ const CLUE_RULES: Record<ClueType, ClueRule> = {
     classification: { read: (a) => a.classification, phrase: (v) => `classée « ${v} »` },
     century: { read: (a) => formatCentury(getCentury(a.objectBeginDate)), phrase: (v) => `créée au ${v}` },
     artist: { read: (a) => a.artistDisplayName, phrase: (v) => `signée ${v}` },
-    medium: { read: (a) => a.medium.split(/[;,]/)[0], phrase: (v) => `en « ${v} »` },
+    medium: { read: (a) => a.medium.split(/[;,\r\n]/)[0], phrase: (v) => `en « ${v} »` },
     bulk: {
         read: (a) => (estimateBulk(a) === 'Inconnu' ? '' : estimateBulk(a)),
         phrase: (v) => `qui tient dans : ${v}`,
