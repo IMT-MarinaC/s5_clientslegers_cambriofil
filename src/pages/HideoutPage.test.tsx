@@ -28,5 +28,5 @@ it('filtre les invendables et rappelle pour qui elles étaient', async () => {
 
     expect(screen.getAllByRole('article')).toHaveLength(1);
     expect(screen.getByText('Pièce 2')).toBeInTheDocument();
-    expect(screen.getByText('Pour La Professeure, qui voulait une pièce classée « Vases ».')).toBeInTheDocument();
+    expect(screen.getByRole('article')).toHaveTextContent('Pour La Professeure, qui voulait une pièce classée « Vases ».');
 });
