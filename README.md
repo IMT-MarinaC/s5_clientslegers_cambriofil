@@ -45,9 +45,17 @@ Thèmes « voleur de jour » et « voleur nocturne », responsive, navigable au 
 ## Mobile first et accessibilité
 
 - CSS mobile first : la base vise un téléphone de 375 px, `@media (min-width)` pour les grands écrans.
-- Objectif WCAG 2.2 AA : contrastes vérifiés dans les deux thèmes, navigation 100 % clavier,
-  focus visible, cibles de 44 px, lien d'évitement, focus déplacé à chaque changement de page,
-  briefing prolongeable (+20 s), graphiques doublés d'un tableau de données, prefers-reduced-motion.
+- Objectif WCAG 2.2 AA : 
+  - contrastes vérifiés dans les deux thèmes
+  - navigation 100 % clavier
+  - focus visible
+  - lien d'évitement
+  - focus déplacé à chaque changement de page
+  - briefing prolongeable (+20 s)
+  - graphiques doublés d'un tableau de données
+  - barre d’onglets mobile qui ne masque jamais le focus
+  - légendes qui ne reposent pas que sur la couleur
+  - ...
 
 ## Stack
 
