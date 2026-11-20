@@ -19,7 +19,7 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
             <h3>
                 <Link to={`/oeuvre/${artwork.objectID}`} className="stretched-link">{artwork.title}</Link>
             </h3>
-            <p className="muted typewriter">Volée le {formatDate(heist.date)} · {artwork.department}</p>
+            <p className="muted typewriter stolen-card__meta">Volée le {formatDate(heist.date)} · {artwork.department}</p>
             {!heist.success && contract && heist.missedClue && (
                 <p className="muted">Pour {contract.client}, qui voulait une pièce {withFinalPeriod(heist.missedClue)}</p>
             )}

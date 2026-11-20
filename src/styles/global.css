@@ -121,6 +121,18 @@ html {
     text-align: center;
     text-decoration: none;
     border-bottom: 3px solid transparent;
+    /* Trait de crayon dessiné au survol, comme sur les boutons */
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 50% calc(100% - 4px);
+    background-size: 0 2px;
+    transition: background-size 0.2s ease-out;
+}
+
+@media (hover: hover) {
+    .nav-link:not(.nav-link--active):hover {
+        background-size: 60% 2px;
+    }
 }
 
 .nav-link--active {
