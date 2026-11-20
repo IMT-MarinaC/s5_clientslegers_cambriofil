@@ -3,7 +3,6 @@ import {countObjects, fetchDepartments, fetchObject, fetchObjects, searchObjectI
 import type {SearchParams} from '../api/types';
 import type {Contract} from '../game/contracts';
 import {pickRandom} from '../utils/random';
-import {keepTop, type Slice} from "../utils/aggregate.ts";
 
 
 export function useObject(id: number) {
@@ -53,27 +52,42 @@ export function useMuseumOverview() {
     });
 }
 
+export interface DepartmentReserve {
+    name: string;
+    onView: number;
+    inReserve: number;
+}
+
+const MAX_DEPARTMENTS = 10;
+
 export function useDepartmentReserves() {
     const departments = useQuery({ queryKey: ['departments'], queryFn: fetchDepartments, staleTime: Infinity });
     const list = departments.data ?? [];
 
     const counts = useQueries({
-        queries: list.map((department) => ({
-            queryKey: ['count', { departmentId: department.departmentId }],
-            queryFn: () => countObjects({ departmentId: department.departmentId }),
-        })),
+        queries: list
+            .flatMap(({ departmentId }): SearchParams[] => [{ departmentId }, { departmentId, isOnView: true }])
+            .map((params) => ({
+                queryKey: ['count', params],
+                queryFn: () => countObjects(params),
+            })),
         combine: (results) => ({
             totals: results.map((result) => result.data ?? 0),
             isLoading: results.some((result) => result.isLoading),
         }),
     });
 
-    const reserves: Slice[] = list
-        .map((department, index) => ({ name: department.displayName, value: counts.totals[index] }))
-        .sort((a, b) => b.value - a.value);
+    const reserves: DepartmentReserve[] = list
+        .map((department, index) => {
+            const total = counts.totals[index * 2];
+            const onView = counts.totals[index * 2 + 1];
+            return { name: department.displayName, onView, inReserve: Math.max(0, total - onView) };
+        })
+        .sort((a, b) => b.inReserve - a.inReserve)
+        .slice(0, MAX_DEPARTMENTS);
 
     return {
-        reserves: keepTop(reserves, 10),
+        reserves,
         isLoading: departments.isLoading || counts.isLoading,
         isError: departments.isError,
         refetch: departments.refetch,
