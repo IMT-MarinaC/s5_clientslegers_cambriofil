@@ -6,7 +6,7 @@ it('affiche la fiche et un risque élevé pour une pièce maîtresse exposée', 
     expect(await screen.findByRole('heading', { level: 1, name: 'Épée de chevalier' })).toBeInTheDocument();
     expect(screen.getByText('n° 371')).toBeInTheDocument();
     expect(screen.getByText('Élevé')).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Dans ta planque' })).not.toBeInTheDocument();
+    expect(screen.queryByText('Dans ta planque')).not.toBeInTheDocument();
 });
 
 it('rappelle quand et pour qui la pièce a été volée', async () => {
@@ -22,8 +22,8 @@ it('rappelle quand et pour qui la pièce a été volée', async () => {
     localStorage.setItem('cambriofil:heists', JSON.stringify([heist]));
     renderApp('/oeuvre/2');
 
-    expect(await screen.findByRole('heading', { name: 'Dans ta planque' })).toBeInTheDocument();
-    expect(screen.getByText(/Monsieur Gris/)).toBeInTheDocument();
+    expect(await screen.findByText('Dans ta planque')).toBeInTheDocument();
+    expect(screen.getByText('Volée le 16 novembre pour Monsieur Gris : livrée')).toBeInTheDocument();
 });
 
 it('affiche un message si l’œuvre n’existe pas', async () => {

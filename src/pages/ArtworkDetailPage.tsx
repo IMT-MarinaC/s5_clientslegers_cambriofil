@@ -3,8 +3,7 @@ import { useObject } from '../hooks/useMetQueries';
 import ArtworkDetails from '../components/artwork/ArtworkDetails';
 import Loader from '../components/ui/Loader';
 import ErrorMessage from '../components/ui/ErrorMessage';
-import {useHeistHistory} from "../hooks/useHeistHistory.ts";
-import StolenHistory from "../components/hideout/StolenHistory.tsx";
+import { useHeistHistory } from "../hooks/useHeistHistory.ts";
 
 export default function ArtworkDetailPage() {
     const { id } = useParams();
@@ -16,6 +15,9 @@ export default function ArtworkDetailPage() {
         return <ErrorMessage message="Cette pièce a disparu des registres." onRetry={() => refetch()} />;
     }
 
+    // L'historique va du plus ancien au plus récent : findLast donne le dernier vol
+    const lastHeist = heists.findLast((heist) => heist.artwork.objectID === artwork.objectID);
+
     return (
         <article>
             <Link to="/planque" className="btn">Retour à la planque</Link>
@@ -23,8 +25,8 @@ export default function ArtworkDetailPage() {
                 artwork={artwork}
                 titleId="artwork-title"
                 titleAs="h1"
-                mediaFooter={<StolenHistory heists={heists.filter((heist) => heist.artwork.objectID === artwork.objectID)} />}
+                heist={lastHeist}
             />
-            </article>
+        </article>
     );
 }

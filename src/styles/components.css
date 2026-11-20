@@ -26,6 +26,15 @@
     color: inherit;
 }
 
+.badge--success {
+    color: var(--green-pencil);
+    border: var(--stroke) solid var(--green-pencil);
+}
+
+.badge--success .badge__label {
+    color: inherit;
+}
+
 .badges {
     display: flex;
     flex-wrap: wrap;
@@ -118,12 +127,21 @@ img.surveillance-photo, .tape img {
     gap: 1rem;
 }
 
-/* ===== Fenêtres modales ===== */
+/* ===== Fiche œuvre (page et fenêtre Examiner) ===== */
+/* Mobile : titre + n° de fiche, photo, descriptif, dans l'ordre du HTML */
 .detail {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 1.5rem;
+}
+
+.detail__header {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.detail__header p {
+    margin: 0;
 }
 
 .detail__info {
@@ -135,12 +153,6 @@ img.surveillance-photo, .tape img {
 
 .detail__title {
     margin: 0;
-}
-
-.detail__media {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
 }
 
 .facts {
@@ -207,12 +219,22 @@ img.surveillance-photo, .tape img {
 }
 
 @media (min-width: 800px) {
+    /* Grand écran : la photo à gauche, titre et descriptif à droite */
     .detail {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-        gap: 3rem;
+        grid-template-areas: 'media header' 'media info';
+        grid-template-rows: auto 1fr; /* le 1fr absorbe la hauteur de la photo : pas de trou sous le titre */
+        gap: 1.5rem 3rem;
         margin-top: 2rem;
     }
+    .detail__header {
+        grid-area: header;
+    }
+    .detail__info {
+        grid-area: info;
+    }
     .detail__media {
+        grid-area: media;
         position: sticky;
         top: 1rem;
         align-self: start;
@@ -331,7 +353,7 @@ img.surveillance-photo, .tape img {
 }
 
 .btn[aria-pressed='true'] {
-    background: var(--highlighter);
+    background-color: var(--highlighter);
 }
 
 .stolen-card {
@@ -344,7 +366,7 @@ img.surveillance-photo, .tape img {
     position: relative;
 }
 
-/* Tampon rouge penché sur la photo des invendables */
+/* Tampon penché sur la photo : rouge pour les invendables, vert pour les livrées */
 .stamp {
     position: absolute;
     top: 38%;
@@ -357,15 +379,17 @@ img.surveillance-photo, .tape img {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--red-pencil);
     background: var(--paper);
-    border: 3px solid var(--red-pencil);
+    border: 3px solid currentColor;
     border-radius: 6px;
 }
 
-/* ===== Stolen History ===== */
-.stolen-history {
-    padding: 1rem 1.5rem;
+.stamp--danger {
+    color: var(--red-pencil);
+}
+
+.stamp--success {
+    color: var(--green-pencil);
 }
 
 /* ===== Charts ===== */
@@ -375,6 +399,26 @@ img.surveillance-photo, .tape img {
 
 .chart-card {
     margin: 0;
+}
+
+.chart-card--wide {
+    grid-column: 1 / -1;
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.25rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.chart-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .charts {
@@ -387,11 +431,35 @@ img.surveillance-photo, .tape img {
     margin-top: 1rem;
 }
 
+/* « Voir les données » : lien souligné + flèche qui pivote, pour montrer qu'un tableau va se déplier */
 .chart-card__data summary {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: 0.35rem;
     min-height: 44px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
     cursor: pointer;
+}
+
+.chart-card__data summary::-webkit-details-marker {
+    display: none; /* la flèche native de Safari ferait doublon */
+}
+
+.chart-card__data summary svg {
+    transition: rotate 0.2s;
+}
+
+.chart-card__data[open] summary svg {
+    rotate: 180deg;
+}
+
+@media (hover: hover) {
+    .chart-card__data summary:hover {
+        color: var(--ink);
+        text-decoration-thickness: 2px;
+    }
 }
 
 .chart-card__data table {

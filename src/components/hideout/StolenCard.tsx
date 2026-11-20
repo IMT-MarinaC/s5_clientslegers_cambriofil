@@ -4,6 +4,7 @@ import type { HeistRecord } from '../../game/history';
 import {formatDate, formatEuros, withFinalPeriod} from '../../utils/format';
 import ArtworkImage from '../artwork/ArtworkImage';
 import Badge from '../ui/Badge';
+import Stamp from '../ui/Stamp';
 
 export default function StolenCard({ heist }: { heist: HeistRecord }) {
     const { artwork } = heist;
@@ -13,7 +14,7 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
         <article className="sketch sketch--interactive stolen-card">
             <div className="stolen-card__photo tape">
                 <ArtworkImage src={artwork.imageUrl} alt={artwork.title} />
-                {!heist.success && <span className="stamp" aria-hidden="true">Invendable</span>}
+                {!heist.success && <Stamp tone="danger">Invendable</Stamp>}
             </div>
             <h3>
                 <Link to={`/oeuvre/${artwork.objectID}`} className="stretched-link">{artwork.title}</Link>
@@ -25,9 +26,9 @@ export default function StolenCard({ heist }: { heist: HeistRecord }) {
             <div className="badges">
                 <Badge label="Valeur" value={formatEuros(artwork.value)} />
                 {heist.success ? (
-                    <Badge label="Livrée" value={formatEuros(heist.reward)} />
+                    <Badge label="Livrée" value={formatEuros(heist.reward)} tone="success" />
                 ) : (
-                    <Badge label="Statut" value="Invendable" danger />
+                    <Badge label="Statut" value="Invendable" tone="danger" />
                 )}
             </div>
         </article>

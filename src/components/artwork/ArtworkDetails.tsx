@@ -1,16 +1,24 @@
-import type {MetObject} from '../../api/types';
+import type { MetObject } from '../../api/types';
+import { findContract } from '../../game/contracts';
+import type { HeistRecord } from '../../game/history';
+import { formatDate } from '../../utils/format';
+import Stamp from '../ui/Stamp';
 import ArtworkImage from './ArtworkImage';
 import ThiefStatsPanel from './ThiefStatsPanel';
-import type {ReactNode} from 'react';
 
 interface ArtworkDetailsProps {
     artwork: MetObject;
     titleId: string;
     titleAs?: 'h1' | 'h2';
-    mediaFooter?: ReactNode;
+    heist?: HeistRecord; // dernier vol de cette œuvre, affiché sur la page fiche
 }
 
-function getFacts(artwork: MetObject) {
+function describeHeist(heist: HeistRecord) {
+    const client = findContract(heist.contractId)?.client ?? 'un commanditaire';
+    return `Volée le ${formatDate(heist.date)} pour ${client} : ${heist.success ? 'livrée' : 'invendable'}`;
+}
+
+function getFacts(artwork: MetObject, heist?: HeistRecord) {
     return [
         { label: 'Artiste', value: artwork.artistDisplayName },
         { label: 'Date', value: artwork.objectDate },
@@ -20,23 +28,24 @@ function getFacts(artwork: MetObject) {
         { label: 'Dimensions', value: artwork.dimensions },
         { label: 'Département', value: artwork.department },
         { label: 'Salle', value: artwork.GalleryNumber ? `n° ${artwork.GalleryNumber}` : 'En réserve' },
+        { label: 'Dans ta planque', value: heist && describeHeist(heist) },
     ].filter((fact) => fact.value); // on n'affiche pas les champs vides
 }
 
-export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', mediaFooter }: ArtworkDetailsProps) {
+export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', heist }: ArtworkDetailsProps) {
     return (
         <div className="detail">
-            <div className="detail__media">
-                <div className="tape">
-                    <ArtworkImage src={artwork.primaryImageSmall} alt={artwork.title} surveillance={false} />
-                </div>
-                {mediaFooter}
-            </div>
-            <div className="detail__info">
+            <div className="detail__header">
                 <Title id={titleId} className="detail__title">{artwork.title || 'Sans titre'}</Title>
                 <p className="muted typewriter">Fiche n° {artwork.objectID}</p>
+            </div>
+            <div className="detail__media tape">
+                <ArtworkImage src={artwork.primaryImageSmall} alt={artwork.title} surveillance={false} />
+                {heist && <Stamp tone={heist.success ? 'success' : 'danger'}>{heist.success ? 'Livrée' : 'Invendable'}</Stamp>}
+            </div>
+            <div className="detail__info">
                 <dl className="sketch facts">
-                    {getFacts(artwork).map((fact) => (
+                    {getFacts(artwork, heist).map((fact) => (
                         <div key={fact.label} className="facts__row">
                             <dt>{fact.label}</dt>
                             <dd className="typewriter">{fact.value}</dd>
