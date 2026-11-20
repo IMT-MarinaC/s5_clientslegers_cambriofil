@@ -5,7 +5,7 @@ qui travaille sur commande : il retient ce que veut un commanditaire, examine le
 et vole celle qui correspond. Ses vols remplissent sa planque et son tableau de chasse.
 
 
-Démo en ligne : [LIEN VERCEL]
+Démo en ligne : https://imt-marinac.github.io/s5_clientslegers_cambriofil/
 
 ![Salle de mission en mode voleur de jour](docs/salle.png)
 
@@ -14,11 +14,11 @@ Démo en ligne : [LIEN VERCEL]
 
 ## Démarrage rapide
 
-Prérequis : Node.js 20 ou plus.
+Prérequis : Node.js 22 (ou 20.19 minimum, exigé par Vite 8).
 
-    git clone https://github.com/enockii/cambriofil.git
+    git clone https://github.com/IMT-MarinaC/s5_clientslegers_cambriofil.git
     # ou télécharger le zip et décompresser
-    cd cambriofil
+    cd s5_clientslegers_cambriofil
     npm install
     npm run dev        # http://localhost:5173
 
@@ -36,7 +36,7 @@ Prérequis : Node.js 20 ou plus.
 | --- | --- |
 | Liste | Contrats (avec le nombre de pièces au Met), salle de 6 œuvres, planque avec filtre |
 | Vue détaillée | Fenêtre « Examiner » dans la salle et page `/oeuvre/:id`, avec lien vers le site du Met |
-| Visualisations | 4 graphiques dans le tableau de chasse |
+| Visualisations | 4 graphiques et 8 chiffres clés dans le tableau de chasse (statistiques du voleur et du musée) |
 
 Le jeu : briefing de 20 secondes, carnet avec un critère noté et les autres flous, appel au
 commanditaire (-25 % de prime par appel), vol, résultat, sauvegarde dans le `localStorage`.
@@ -95,7 +95,7 @@ Principes :
 | Aire | Est-ce que je m'enrichis ? | Évolution d'un cumul dans le temps |
 | Barres empilées | Quels contrats je rate ? | Réussis + ratés = total des tentatives par contrat |
 | Camembert | Qu'est-ce que je vole ? | Parts d'un tout, limité à 6 parts + "Autres" |
-| Barres horizontales | Où frapper ensuite ? | Comparer 10 départements aux noms longs |
+| Barres horizontales empilées | Où frapper ensuite ? | Exposées + en réserve par département, 10 départements aux noms longs |
 
 Hachures plutôt que couleurs seules : cohérent avec le style crayon et lisible par les daltoniens.
 
@@ -121,10 +121,18 @@ Ce que j'ai fait moi-même :
 
 ## Tests
 
-`npm run test:run` : 29 tests.
+`npm run test:run` : 38 tests, relancés automatiquement à chaque push avant le déploiement.
 - Unitaires : indicateurs voleur, siècles, génération de mission, statistiques.
 - Intégration (app complète + faux serveur MSW) : mission de bout en bout jusqu'à la planque,
   contrats, filtre de la planque, fiche, erreurs API, page 404, tableau de chasse vide.
+
+## Déploiement
+
+GitHub Pages, via GitHub Actions (`.github/workflows/deploy.yml`) : à chaque push sur `master`,
+lint, tests, build, puis publication. Deux réglages pour un site servi sous `/s5_clientslegers_cambriofil/` :
+- `base` dans `vite.config.ts` et `basename` du routeur, sinon la page reste blanche ;
+- `404.html` copié depuis `index.html`, pour qu'un rechargement de `/planque` ou un lien direct vers une œuvre
+  ne tombe pas sur la page 404 de GitHub.
 
 ## Pistes d'amélioration
 

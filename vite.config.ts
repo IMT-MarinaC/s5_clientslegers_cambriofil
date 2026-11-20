@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config';
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/s5_clientslegers_cambriofil/' : '/',
   plugins: [react()],
   test: {
     environment: 'jsdom',
@@ -10,4 +10,4 @@ export default defineConfig({
     setupFiles: './src/tests/setup.ts',
     css: false,
   },
-})
+}))
