@@ -7,7 +7,7 @@ et vole celle qui correspond. Ses vols remplissent sa planque et son tableau de 
 
 Démo en ligne : https://imt-marinac.github.io/s5_clientslegers_cambriofil/
 
-![Salle de mission en mode voleur de jour](docs/salle.png)
+![Salle de mission en mode voleur de jour](<img width="3732" height="1887" alt="image" src="https://github.com/user-attachments/assets/b67612da-323d-446c-8462-ad050ece8953" />)
 
 > Pour bien évaluer l'application, jouez une ou deux missions : la planque et les statistiques
 > personnelles se remplissent avec vos vols. Le graphique du musée est visible dès le départ.
@@ -114,10 +114,17 @@ Hachures plutôt que couleurs seules : cohérent avec le style crayon et lisible
   - découper le projet et aide au design + maquettes
   - générer les tests unitaires, d'intégration et d'accessibilité
   - MSW, `<dialog>`, charts…
+  - Structure du README
+  - Quelques correctifs
   
 Ce que j'ai fait moi-même : 
-* Concept des commandes et du carnet, adaptations, corrections, choix des contrats, textes, ajustements CSS, écrans visibles (pages)…
-- Limites rencontrées : [code à corriger, informations périmées sur l'API…].
+- Concept des commandes et du carnet, adaptations, corrections, choix des contrats, textes, ajustements CSS, écrans visibles (pages), …
+
+Limites rencontrées :
+- <dialog> qui s'affichait mal (scrollé, trop haut)
+- Bien faire l'effet crayon
+- l’option MSW renommée en v3
+- 
 
 ## Tests
 
