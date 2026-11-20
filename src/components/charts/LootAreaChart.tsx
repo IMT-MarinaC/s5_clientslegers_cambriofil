@@ -8,7 +8,7 @@ export default function LootAreaChart({ data }: { data: Slice[] }) {
     const rows = data.map((point) => ({ label: `Après le casse ${point.name}`, value: formatEuros(point.value) }));
 
     return (
-        <ChartCard title="Ton butin au fil des casses" question="Est-ce que je m'enrichis ? Butin cumulé après chaque mission" rows={rows}>
+        <ChartCard title="Ton butin au fil des casses" question="Est-ce que je m'enrichis ? Butin cumulé après chaque mission" rows={rows} wide>
             <AreaChart data={data}>
                 <CartesianGrid stroke="var(--ink-soft)" strokeDasharray="4 6" vertical={false} />
                 <XAxis dataKey="name" tick={AXIS_TICK} stroke="var(--ink)" />

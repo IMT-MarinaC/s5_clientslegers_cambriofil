@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { ResponsiveContainer } from 'recharts';
 import { DEFAULT_CHART_HEIGHT } from './chartTheme';
 
@@ -12,12 +13,13 @@ interface ChartCardProps {
     question: string;
     rows: ChartRow[]; //Les mêmes données en texte, pour les lecteurs d'écran et les ptits curieux
     height?: number;
+    wide?: boolean; // prend toute la largeur de la grille (une évolution dans le temps se lit mieux en large)
     children: ReactElement;
 }
 
-export default function ChartCard({ title, question, rows, height = DEFAULT_CHART_HEIGHT, children }: ChartCardProps) {
+export default function ChartCard({ title, question, rows, height = DEFAULT_CHART_HEIGHT, wide = false, children }: ChartCardProps) {
     return (
-        <figure className="sketch chart-card">
+        <figure className={wide ? 'sketch chart-card chart-card--wide' : 'sketch chart-card'}>
             <figcaption>
                 <h3>{title}</h3>
                 <p className="muted">{question}</p>
@@ -29,7 +31,10 @@ export default function ChartCard({ title, question, rows, height = DEFAULT_CHAR
                 </ResponsiveContainer>
             </div>
             <details className="chart-card__data">
-                <summary>Voir les données</summary>
+                <summary>
+                    Voir les données
+                    <ChevronDown aria-hidden="true" size={18} />
+                </summary>
                 <table>
                     <caption className="sr-only">{title}</caption>
                     <tbody>

@@ -1,7 +1,7 @@
 import { Bar, BarChart, Tooltip, XAxis, YAxis } from 'recharts';
 import type { Slice } from '../../utils/aggregate';
 import ChartCard from './ChartCard';
-import { AXIS_TICK, formatCount, shortenLabel, TOOLTIP_STYLE } from './chartTheme';
+import { AXIS_TICK, formatCount, shortenLabel, TOOLTIP_CURSOR, TOOLTIP_STYLE } from './chartTheme';
 
 export default function MuseumReservesChart({ data }: { data: Slice[] }) {
     const rows = data.map(
@@ -19,7 +19,7 @@ export default function MuseumReservesChart({ data }: { data: Slice[] }) {
             <BarChart data={data} layout="vertical">
                 <XAxis type="number" tickFormatter={formatCount} tick={AXIS_TICK} stroke="var(--ink)" />
                 <YAxis type="category" dataKey="name" width={120} tickFormatter={shortenLabel} tick={AXIS_TICK} stroke="var(--ink)" />
-                <Tooltip contentStyle={TOOLTIP_STYLE} formatter={formatCount} />
+                <Tooltip contentStyle={TOOLTIP_STYLE} cursor={TOOLTIP_CURSOR} formatter={formatCount} />
                 <Bar dataKey="value" name="Œuvres" fill="url(#fill-hatch)" stroke="var(--ink)" strokeWidth={2} />
             </BarChart>
         </ChartCard>

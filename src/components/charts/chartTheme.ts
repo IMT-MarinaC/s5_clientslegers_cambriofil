@@ -17,6 +17,9 @@ export const TOOLTIP_STYLE = {
     color: 'var(--ink)',
 };
 
+// Bande grise discrète derrière la barre survolée (celle par défaut de Recharts devient blanche en thème sombre)
+export const TOOLTIP_CURSOR = { fill: 'var(--ink-soft)', fillOpacity: 0.15 };
+
 export const DEFAULT_CHART_HEIGHT = 300;
 export const formatCount = (value: unknown) => Number(value).toLocaleString('fr-FR');
 
