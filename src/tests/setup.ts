@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 import { server } from './handlers';
 
-// jsdom ne simule pas tout le navigateur : on complète ce qui manque
+// jsdom ne simule pas tout le navigateur : ça complète ce qui manque
 Object.defineProperty(window, 'matchMedia', {
     value: (query: string) => ({ matches: false, media: query, addEventListener: () => {}, removeEventListener: () => {} }),
 });

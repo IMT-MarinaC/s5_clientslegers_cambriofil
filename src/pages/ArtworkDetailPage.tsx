@@ -17,7 +17,6 @@ export default function ArtworkDetailPage() {
         return <ErrorMessage message="Cette pièce a disparu des registres." onRetry={() => refetch()} />;
     }
 
-    // L'historique va du plus ancien au plus récent : findLast donne le dernier vol
     const lastHeist = heists.findLast((heist) => heist.artwork.objectID === artwork.objectID);
 
     return (

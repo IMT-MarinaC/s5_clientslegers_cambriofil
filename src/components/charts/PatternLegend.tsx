@@ -4,7 +4,6 @@ export interface LegendItem {
     stroke: string;
 }
 
-// Légende maison : chaque carré reprend le motif ET le contour de sa série, sinon les hachures fines sont à peine visibles
 export default function PatternLegend({ items }: { items: readonly LegendItem[] }) {
     return (
         <ul className="chart-legend">

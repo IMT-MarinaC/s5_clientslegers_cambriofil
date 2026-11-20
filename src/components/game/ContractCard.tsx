@@ -11,7 +11,7 @@ interface ContractCardProps {
 export default function ContractCard({ contract, museumCount }: ContractCardProps) {
     return (
         <article className="sketch sketch--overshoot contract-card">
-            <p className="muted typewriter">{contract.difficulty} · {contract.clueTypes.length} critères</p>
+            <p className="muted typewriter contract-card__meta">{contract.difficulty} · {contract.clueTypes.length} critères</p>
             <h2>{contract.client}</h2>
             <p className="contract-card__title">« {contract.title} »</p>
             <p className="muted">{contract.pitch}</p>

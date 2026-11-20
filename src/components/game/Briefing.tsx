@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Hourglass } from 'lucide-react';
 import type { Contract } from '../../game/contracts';
 import type { Clue } from '../../game/clue';
+import ClueText from './ClueText';
 
 const BRIEFING_SECONDS = 20;
 const EXTRA_SECONDS = 20;
@@ -30,7 +32,7 @@ export default function Briefing({ contract, clues, onReady }: BriefingProps) {
             <p>{contract.pitch} Je veux une pièce :</p>
             <ul className="briefing__clues">
                 {clues.map((clue) => (
-                    <li key={clue.type}><span className="highlight">{clue.text}</span></li>
+                    <li key={clue.type}><ClueText clue={clue} /></li>
                 ))}
             </ul>
             {/* role="timer" n'est pas annoncé chaque seconde par les lecteurs d'écran */}
@@ -38,12 +40,13 @@ export default function Briefing({ contract, clues, onReady }: BriefingProps) {
                 Ce message s'autodétruit dans <strong className="typewriter">{secondsLeft} s</strong>
             </p>
             <div className="briefing__actions">
+                {/* Accessibilité (WCAG 2.2.1) : un temps limité doit pouvoir être prolongé */}
+                <button type="button" className="link-button" onClick={() => setSecondsLeft((seconds) => seconds + EXTRA_SECONDS)}>
+                    <Hourglass aria-hidden="true" size={18} />
+                    Il me faut plus de temps (+{EXTRA_SECONDS} s)
+                </button>
                 <button type="button" className="btn btn--primary" onClick={onReady}>
                     C'est noté, j'y vais
-                </button>
-                {/* Accessibilité (WCAG 2.2.1) : un temps limité doit pouvoir être prolongé */}
-                <button type="button" className="btn" onClick={() => setSecondsLeft((seconds) => seconds + EXTRA_SECONDS)}>
-                    Il me faut plus de temps (+{EXTRA_SECONDS} s)
                 </button>
             </div>
         </section>

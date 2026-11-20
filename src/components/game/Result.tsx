@@ -12,7 +12,7 @@ interface ResultProps {
     stolen: MetObject;
     target: MetObject;
     failedClues: Clue[];
-    notedCount: number; // lignes lisibles dans le carnet au moment du vol
+    notedCount: number;
     totalClues: number;
     totalLoot: number;
     onReplay: () => void;

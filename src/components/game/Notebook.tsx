@@ -1,5 +1,6 @@
 import type { Clue } from '../../game/clue';
 import { CALL_PENALTY } from '../../game/reward';
+import ClueText from './ClueText';
 
 const SCRIBBLE = 'gribouillis illisible au crayon';
 
@@ -19,7 +20,7 @@ export default function Notebook({ clues, revealedCount, onCall }: NotebookProps
             <ul aria-live="polite">
                 {clues.map((clue, index) =>
                     index < revealedCount ? (
-                        <li key={clue.type}>{clue.text}</li>
+                        <li key={clue.type}><ClueText clue={clue} /></li>
                     ) : (
                         <li key={clue.type} className="notebook__blurred">
                             <span aria-hidden="true">{SCRIBBLE}</span>

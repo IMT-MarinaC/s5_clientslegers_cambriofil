@@ -4,7 +4,6 @@ import ChartCard from './ChartCard';
 import PatternLegend from './PatternLegend';
 import { AXIS_TICK, shortenLabel, TOOLTIP_CURSOR, TOOLTIP_STYLE } from './chartTheme';
 
-// Une seule définition pour les barres et pour la légende
 const SERIES = [
     { dataKey: 'succeeded', label: 'Réussis', fill: 'url(#fill-solid)', stroke: 'var(--ink)' },
     { dataKey: 'failed', label: 'Ratés', fill: 'url(#fill-red-hatch)', stroke: 'var(--red-pencil)' },

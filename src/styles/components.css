@@ -111,8 +111,16 @@ img.surveillance-photo, .tape img {
 .contract-card {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.5rem;
     align-items: flex-start;
+}
+
+.contract-card h2, .contract-card p {
+    margin: 0;
+}
+
+.contract-card__meta {
+    font-size: 0.85rem;
 }
 
 .contract-card__title {
@@ -336,6 +344,8 @@ img.surveillance-photo, .tape img {
 .briefing, .result { max-width: 780px; margin: 0 auto; text-align: center; }
 .briefing { text-align: left; }
 .briefing__clues { font-size: 1.4rem; }
+.briefing__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; margin-top: 1.5rem; }
+.briefing__actions .btn--primary { margin-left: auto; } /* reste à droite, même quand les boutons passent sur deux lignes */
 .result__photo { position: relative; }
 .result > .result__photo { max-width: 320px; margin: 2rem auto; }
 .result__compare { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem; margin: 1.5rem 0; }
@@ -478,18 +488,7 @@ img.surveillance-photo, .tape img {
     margin-top: 1rem;
 }
 
-/* « Voir les données » : lien souligné + flèche qui pivote, pour montrer qu'un tableau va se déplier */
-.chart-card__data summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    min-height: 44px;
-    color: var(--ink-soft);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    cursor: pointer;
-}
-
+/* « Voir les données » (.link-button) : la flèche pivote pour montrer qu'un tableau va se déplier */
 .chart-card__data summary::-webkit-details-marker {
     display: none; /* la flèche native de Safari ferait doublon */
 }
@@ -500,13 +499,6 @@ img.surveillance-photo, .tape img {
 
 .chart-card__data[open] summary svg {
     rotate: 180deg;
-}
-
-@media (hover: hover) {
-    .chart-card__data summary:hover {
-        color: var(--ink);
-        text-decoration-thickness: 2px;
-    }
 }
 
 .chart-card__data table {

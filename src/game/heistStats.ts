@@ -4,7 +4,7 @@ import type { HeistRecord } from './history';
 
 export interface HeistSummary {
     count: number;
-    successRate: number; // en %
+    successRate: number;
     totalLoot: number;
     callsMade: number;
 }
@@ -19,7 +19,6 @@ export function summarizeHeists(heists: HeistRecord[]): HeistSummary {
     };
 }
 
-// Butin cumulé après chaque casse : #1, #2, #3…
 export function cumulativeLoot(heists: HeistRecord[]): Slice[] {
     let runningTotal = 0;
     return heists.map((heist, index) => {
@@ -41,7 +40,7 @@ export function scoreByContract(heist: HeistRecord[], contracts: Contract[]): Co
             const succeeded = attempts.filter((heist) => heist.success).length;
             return { name: contract.client, succeeded, failed: attempts.length - succeeded };
         })
-        .filter((score) => score.succeeded + score.failed > 0); // on cache les contrats jamais tentés
+        .filter((score) => score.succeeded + score.failed > 0);
 }
 
 export const stolenByDepartment = (heists: HeistRecord[]) =>

@@ -13,7 +13,7 @@ interface ChartCardProps {
     question: string;
     rows: ChartRow[]; //Les mêmes données en texte, pour les lecteurs d'écran et les ptits curieux
     height?: number;
-    wide?: boolean; // prend toute la largeur de la grille (une évolution dans le temps se lit mieux en large)
+    wide?: boolean;
     children: ReactElement;
 }
 
@@ -31,7 +31,7 @@ export default function ChartCard({ title, question, rows, height = DEFAULT_CHAR
                 </ResponsiveContainer>
             </div>
             <details className="chart-card__data">
-                <summary>
+                <summary className="link-button">
                     Voir les données
                     <ChevronDown aria-hidden="true" size={18} />
                 </summary>

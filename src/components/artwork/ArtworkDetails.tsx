@@ -10,8 +10,8 @@ interface ArtworkDetailsProps {
     artwork: MetObject;
     titleId: string;
     titleAs?: 'h1' | 'h2';
-    heist?: HeistRecord; // dernier vol de cette œuvre, affiché sur la page fiche
-    children?: ReactNode; // contenu en plus sous le descriptif (ex. l'avis du receleur sur la page fiche)
+    heist?: HeistRecord;
+    children?: ReactNode;
 }
 
 function describeHeist(heist: HeistRecord) {
@@ -22,7 +22,6 @@ function describeHeist(heist: HeistRecord) {
 function getFacts(artwork: MetObject, heist?: HeistRecord) {
     return [
         { label: 'Artiste', value: artwork.artistDisplayName },
-        // Même format que le carnet (« créée au XVIe siècle av. J.-C. ») pour comparer d'un coup d'œil
         { label: 'Siècle', value: artwork.objectDate && formatCentury(getCentury(artwork.objectBeginDate)) },
         { label: 'Années', value: artwork.objectDate && formatYearRange(artwork.objectBeginDate, artwork.objectEndDate) },
         { label: 'Culture', value: artwork.culture },
@@ -32,7 +31,7 @@ function getFacts(artwork: MetObject, heist?: HeistRecord) {
         { label: 'Département', value: artwork.department },
         { label: 'Salle', value: artwork.GalleryNumber ? `n° ${artwork.GalleryNumber}` : 'En réserve' },
         { label: 'Dans ta planque', value: heist && describeHeist(heist) },
-    ].filter((fact) => fact.value); // on n'affiche pas les champs vides
+    ].filter((fact) => fact.value);
 }
 
 export default function ArtworkDetails({ artwork, titleId, titleAs: Title = 'h2', heist, children }: ArtworkDetailsProps) {

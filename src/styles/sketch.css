@@ -150,6 +150,29 @@
     box-shadow: none;
 }
 
+/**** Bouton discret, en lien gris souligné : actions secondaires (« Voir les données », « Plus de temps ») ****/
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 44px;
+    padding: 0;
+    font: inherit;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .link-button:hover {
+        color: var(--ink);
+        text-decoration-thickness: 2px;
+    }
+}
+
 /**** Champs de formulaire : simple trait souligné ****/
 .field {
     display: flex;

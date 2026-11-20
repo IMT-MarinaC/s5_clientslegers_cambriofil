@@ -33,7 +33,7 @@ export function getCentury(year: number): number {
     return -Math.max(1, Math.ceil(-year / 100));
 }
 
-const BEFORE_CHRIST = 'av.\u00a0J.\u2011C.'; // espace et tiret insécables : « J.-C. » ne se coupe jamais en fin de ligne
+const BEFORE_CHRIST = 'av.\u00a0J.\u2011C.';
 
 // 19 -> "XIXe siècle", 1 -> "Ier siècle", -14 -> "XIVe siècle av. J.-C."
 export function formatCentury(century: number): string {
@@ -44,7 +44,6 @@ export function formatCentury(century: number): string {
 
 const formatYear = (year: number) => (year < 0 ? `${-year} ${BEFORE_CHRIST}` : String(year));
 
-// Années de création en français, à la place du texte anglais du Met ("ca. 1600–1450 BCE")
 export function formatYearRange(begin: number, end: number): string {
     if (begin === end) return formatYear(begin);
     if (end < 0) return `${-begin} – ${-end} ${BEFORE_CHRIST}`;

@@ -8,7 +8,7 @@ import { renderApp } from '../tests/renderApp';
 describe('Mission', () => {
     it('enchaîne briefing, carnet, examen, vol, puis range la pièce dans la planque', async () => {
         const user = userEvent.setup();
-        renderApp('/contrats/collectionneur'); // 3 critères : 1 noté + 2 flous
+        renderApp('/contrats/collectionneur');
 
         await user.click(await screen.findByRole('button', { name: /c'est noté/i }));
         expect(screen.getByRole('heading', { name: 'La salle' })).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Mission', () => {
 
         await user.click(await screen.findByRole('button', { name: /c'est noté/i }));
         await user.click(screen.getAllByRole('button', { name: /^Examiner/ })[0]);
-        await user.click(screen.getByRole('dialog')); // vise le <dialog> lui-même, comme un clic sur le fond assombri
+        await user.click(screen.getByRole('dialog'));
 
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
         expect(screen.getByRole('heading', { name: 'La salle' })).toBeInTheDocument();
