@@ -101,12 +101,16 @@ Hachures plutôt que couleurs seules : cohérent avec le style crayon et lisible
 
 ## Points de blocage
 
-- **Recherche v1 retirée** en octobre 2026 : migration vers `/v1.1/search`. [Comment tu l'as découvert]
+- **Recherche v1 retirée** en octobre 2026 : migration vers `/v1.1/search`. Mais annoncée dès le début par l'api elle-même. 
 - **La recherche ne renvoie que des IDs** : une requête par œuvre, d'où un lot de 24 œuvres tirées au hasard.
 - **IDs en 404 et images manquantes** : `Promise.allSettled` et dessin de remplacement.
 - **Garantir une seule bonne réponse** : les leurres ne peuvent pas respecter tous les critères.
 - **Effet crayon** : faire un effet css
 - **Tests d'accessibilité** : axe-core ne calcule pas les couleurs, donc vérification avec Lighthouse dans le navigateur.
+- <dialog> qui s'affichait mal (scrollé, trop haut)
+- Bien faire l'effet crayon
+- l’option MSW renommée en v3
+- ...
 
 ## Utilisation de l'IA
 - Outil : Claude Opus 5.5
@@ -117,14 +121,7 @@ Hachures plutôt que couleurs seules : cohérent avec le style crayon et lisible
   - Structure du README
   - Quelques correctifs
   
-Ce que j'ai fait moi-même : 
-- Concept des commandes et du carnet, adaptations, corrections, choix des contrats, textes, ajustements CSS, écrans visibles (pages), …
-
-Limites rencontrées :
-- <dialog> qui s'affichait mal (scrollé, trop haut)
-- Bien faire l'effet crayon
-- l’option MSW renommée en v3
-- 
+Ce que j'ai fait moi-même : Concept des commandes et du carnet, adaptations, corrections, choix des contrats, textes, ajustements CSS, écrans visibles (pages), …
 
 ## Tests
 
