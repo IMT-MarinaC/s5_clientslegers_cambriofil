@@ -7,7 +7,7 @@ et vole celle qui correspond. Ses vols remplissent sa planque et son tableau de 
 
 Démo en ligne : https://imt-marinac.github.io/s5_clientslegers_cambriofil/
 
-![Salle de mission en mode voleur de jour](<img width="3732" height="1887" alt="image" src="https://github.com/user-attachments/assets/b67612da-323d-446c-8462-ad050ece8953" />)
+<img width="3732" height="1887" alt="image" src="https://github.com/user-attachments/assets/b67612da-323d-446c-8462-ad050ece8953" />
 
 > Pour bien évaluer l'application, jouez une ou deux missions : la planque et les statistiques
 > personnelles se remplissent avec vos vols. Le graphique du musée est visible dès le départ.
